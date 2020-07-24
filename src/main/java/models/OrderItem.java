@@ -2,6 +2,8 @@ package models;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "order_items")
@@ -16,6 +18,15 @@ public class OrderItem {
 
     @Column
     private BigDecimal final_price;
+
+    @OneToOne
+    @JoinColumn(name="food_id")
+    private Food foodObj;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="order_items_id")
+    private List<OrderItemIngredient> ingredients = new ArrayList<>();
+
 
     public OrderItem() {
     }
@@ -42,5 +53,21 @@ public class OrderItem {
 
     public void setFinal_price(BigDecimal final_price) {
         this.final_price = final_price;
+    }
+
+    public Food getFoodObj() {
+        return foodObj;
+    }
+
+    public void setFoodObj(Food foodObj) {
+        this.foodObj = foodObj;
+    }
+
+    public List<OrderItemIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<OrderItemIngredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }

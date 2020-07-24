@@ -5,7 +5,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -27,6 +29,11 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date updated_at;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name=" order_id")
+    private List<OrderItem> items = new ArrayList<>();
+
 
     public Order() {
     }
@@ -61,5 +68,13 @@ public class Order {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }

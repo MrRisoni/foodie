@@ -14,6 +14,10 @@ public class OrderItemIngredient {
     @Column
     private BigDecimal price;
 
+    @OneToOne
+    @JoinColumn(name="ingredients_id")
+    private Ingredient ingredientObj;
+
     public OrderItemIngredient() {
     }
 
@@ -31,5 +35,13 @@ public class OrderItemIngredient {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Ingredient getIngredientObj() {
+        return ingredientObj;
+    }
+
+    public void setIngredientObj(Ingredient ingredientObj) {
+        this.ingredientObj = ingredientObj;
     }
 }
