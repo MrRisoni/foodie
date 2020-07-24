@@ -30,6 +30,7 @@ public class BrowseController {
         EntityManager em = HibernateUtil.getEM();
         HashMap<String,Object> rsp = new HashMap<>();
         Long userId = 1L;
+        Long selectedAddrerss = 1L;
         rsp.put("cusines", em.createQuery("FROM Cuisine ORDER BY name ASC", Cuisine.class).getResultList());
 
         Optional<User> fetchedUser = usrRepo.findById(userId);
@@ -41,6 +42,21 @@ public class BrowseController {
         for (Restaurant fv : favs) {
             favorites.put(fv.getId(),fv.getName());
         }
+        // get all other restaurants that serve the users suburb address
+        // and that are not in his favorites
+
+        rsp.put("restaurants",em.createNativeQuery(
+                " SELECT r.id , r.name FROM " +
+                " restaurants r " +
+                " LEFT JOIN " +
+                " users_favorite_restaurants  fv ON (fv.restaurant_id = r.id AND  fv.user_id = :usrid) " +
+                " JOIN shops s ON s.restaurants_id = r.id " +
+                " JOIN  shops_serving_suburbs ssbs ON ssbs.sssb_shop_id = s.id " +
+                " JOIN users_addresses usa ON usa.add_suburb_id =  sssb_suburb_id " +
+                " WHERE  fv.restaurant_id IS NULL " +
+                " AND usa.add_id =:addrid").setParameter("usrid",userId).setParameter("addrid",selectedAddrerss).getResultList());
+        
+
 
         rsp.put("favorites",favorites);
 

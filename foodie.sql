@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2020 at 08:02 AM
--- Server version: 8.0.21
--- PHP Version: 7.4.7
+-- Generation Time: Jul 24, 2020 at 10:24 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `foodapp`
+-- Database: `foodie`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +29,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cities` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `perfectures_id` bigint DEFAULT NULL
+  `perfectures_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -47,12 +48,12 @@ INSERT INTO `cities` (`id`, `name`, `perfectures_id`) VALUES
 --
 
 CREATE TABLE `credit_cards` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `bin` varchar(255) DEFAULT NULL,
   `lastfour` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `user_id` bigint NOT NULL
+  `user_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -62,7 +63,7 @@ CREATE TABLE `credit_cards` (
 --
 
 CREATE TABLE `cuisines` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -72,6 +73,9 @@ CREATE TABLE `cuisines` (
 
 INSERT INTO `cuisines` (`id`, `name`) VALUES
 (2, 'Burger'),
+(4, 'Pizza'),
+(5, 'Ζυμαρικά'),
+(3, 'Κινέζικο'),
 (1, 'Σουβλάκι');
 
 -- --------------------------------------------------------
@@ -81,7 +85,7 @@ INSERT INTO `cuisines` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `donations` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -95,12 +99,12 @@ CREATE TABLE `donations` (
 --
 
 CREATE TABLE `foods` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
-  `restaurants_id` bigint DEFAULT NULL,
-  `cuisines_id` bigint DEFAULT NULL,
-  `menus_id` bigint DEFAULT NULL,
+  `restaurants_id` bigint(20) DEFAULT NULL,
+  `cuisines_id` bigint(20) DEFAULT NULL,
+  `menus_id` bigint(20) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -118,9 +122,9 @@ INSERT INTO `foods` (`id`, `name`, `active`, `restaurants_id`, `cuisines_id`, `m
 --
 
 CREATE TABLE `food_parts` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `foods_id` bigint DEFAULT NULL,
+  `foods_id` bigint(20) DEFAULT NULL,
   `allow_many` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -140,9 +144,9 @@ INSERT INTO `food_parts` (`id`, `name`, `foods_id`, `allow_many`) VALUES
 --
 
 CREATE TABLE `food_part_ingredients` (
-  `id` bigint UNSIGNED NOT NULL,
-  `food_part_id` bigint NOT NULL,
-  `ingredient_id` bigint NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `food_part_id` bigint(20) NOT NULL,
+  `ingredient_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -161,9 +165,9 @@ INSERT INTO `food_part_ingredients` (`id`, `food_part_id`, `ingredient_id`) VALU
 --
 
 CREATE TABLE `ingredients` (
-  `id` bigint NOT NULL,
-  `restaurant_id` bigint NOT NULL,
-  `name` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` bigint(20) NOT NULL,
+  `restaurant_id` bigint(20) NOT NULL,
+  `name` varchar(55) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -186,9 +190,9 @@ INSERT INTO `ingredients` (`id`, `restaurant_id`, `name`, `price`) VALUES
 --
 
 CREATE TABLE `menus` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `restaurants_id` bigint DEFAULT NULL
+  `restaurants_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -207,12 +211,12 @@ INSERT INTO `menus` (`id`, `name`, `restaurants_id`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `success` tinyint(1) DEFAULT NULL,
   `final` decimal(10,2) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `users_id` bigint DEFAULT NULL
+  `users_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -229,10 +233,10 @@ INSERT INTO `orders` (`id`, `success`, `final`, `created_at`, `updated_at`, `use
 --
 
 CREATE TABLE `order_items` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `price` decimal(10,2) DEFAULT NULL,
-  `food_id` bigint DEFAULT NULL,
-  `comment` text
+  `food_id` bigint(20) DEFAULT NULL,
+  `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -242,10 +246,10 @@ CREATE TABLE `order_items` (
 --
 
 CREATE TABLE `order_item_ingredients` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `price` decimal(10,2) DEFAULT NULL,
-  `order_items_id` bigint DEFAULT NULL,
-  `ingredients_id` bigint DEFAULT NULL
+  `order_items_id` bigint(20) DEFAULT NULL,
+  `ingredients_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -255,7 +259,7 @@ CREATE TABLE `order_item_ingredients` (
 --
 
 CREATE TABLE `perfectures` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -273,7 +277,7 @@ INSERT INTO `perfectures` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `restaurants` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -282,7 +286,10 @@ CREATE TABLE `restaurants` (
 --
 
 INSERT INTO `restaurants` (`id`, `name`) VALUES
-(1, 'stage grill');
+(1, 'stage grill'),
+(2, 'Kalamaki and Burger Story'),
+(3, 'La pasteria'),
+(4, 'Mr Dim');
 
 -- --------------------------------------------------------
 
@@ -291,10 +298,10 @@ INSERT INTO `restaurants` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `restaurants_cuisines` (
-  `id` bigint NOT NULL,
-  `active` tinyint(1) DEFAULT NULL,
-  `restaurants_id` bigint DEFAULT NULL,
-  `cuisines_id` bigint DEFAULT NULL
+  `id` bigint(20) NOT NULL,
+  `active` tinyint(1) DEFAULT 1,
+  `restaurants_id` bigint(20) DEFAULT NULL,
+  `cuisines_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -302,7 +309,11 @@ CREATE TABLE `restaurants_cuisines` (
 --
 
 INSERT INTO `restaurants_cuisines` (`id`, `active`, `restaurants_id`, `cuisines_id`) VALUES
-(1, 1, 1, 1);
+(1, 1, 1, 1),
+(2, 1, 3, 4),
+(3, 1, 3, 5),
+(4, 1, 4, 3),
+(5, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -311,10 +322,10 @@ INSERT INTO `restaurants_cuisines` (`id`, `active`, `restaurants_id`, `cuisines_
 --
 
 CREATE TABLE `shops` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `active` tinyint(1) DEFAULT NULL,
-  `suburbs_id` bigint DEFAULT NULL,
-  `restaurants_id` bigint DEFAULT NULL
+  `suburbs_id` bigint(20) DEFAULT NULL,
+  `restaurants_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -322,7 +333,32 @@ CREATE TABLE `shops` (
 --
 
 INSERT INTO `shops` (`id`, `active`, `suburbs_id`, `restaurants_id`) VALUES
-(1, 1, 2, 1);
+(1, 1, 2, 1),
+(2, 1, 8, 3),
+(3, 1, 8, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shops_serving_suburbs`
+--
+
+CREATE TABLE `shops_serving_suburbs` (
+  `sssb_id` bigint(20) UNSIGNED NOT NULL,
+  `sssb_shop_id` bigint(20) NOT NULL,
+  `sssb_suburb_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `shops_serving_suburbs`
+--
+
+INSERT INTO `shops_serving_suburbs` (`sssb_id`, `sssb_shop_id`, `sssb_suburb_id`) VALUES
+(5, 1, 2),
+(1, 2, 2),
+(3, 2, 3),
+(2, 2, 6),
+(4, 3, 8);
 
 -- --------------------------------------------------------
 
@@ -331,9 +367,9 @@ INSERT INTO `shops` (`id`, `active`, `suburbs_id`, `restaurants_id`) VALUES
 --
 
 CREATE TABLE `suburbs` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `cities_id` bigint DEFAULT NULL
+  `cities_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -341,8 +377,14 @@ CREATE TABLE `suburbs` (
 --
 
 INSERT INTO `suburbs` (`id`, `name`, `cities_id`) VALUES
+(2, 'Καλλιθεα', 1),
 (1, 'Κιφησια', 1),
-(2, 'Καλλιθεα', 1);
+(4, 'Μαρούσι', 1),
+(5, 'Μοσχάτο', 1),
+(8, 'Νέα Σμύρνη', 1),
+(6, 'Νέος Κόσμος', 1),
+(3, 'Παλαιο Φάληρο', 1),
+(7, 'Τζιτζιφιές', 1);
 
 -- --------------------------------------------------------
 
@@ -351,7 +393,7 @@ INSERT INTO `suburbs` (`id`, `name`, `cities_id`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `passwd` varchar(255) DEFAULT NULL,
@@ -364,7 +406,49 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `name`, `passwd`, `created_at`, `updated_at`) VALUES
-(1, 'vag', 'vag', 'vag', '2020-05-23 10:58:18', '2020-05-23 10:58:18');
+(1, 'vag', 'vag', 'vag', '2020-05-23 10:58:18', '2020-05-23 10:58:18'),
+(2, 'vagos', 'vagos', 'vagos', '2020-05-23 10:58:18', '2020-05-23 10:58:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_addresses`
+--
+
+CREATE TABLE `users_addresses` (
+  `add_id` bigint(20) UNSIGNED NOT NULL,
+  `add_user_id` bigint(20) NOT NULL,
+  `add_suburb_id` bigint(20) NOT NULL,
+  `add_street` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users_addresses`
+--
+
+INSERT INTO `users_addresses` (`add_id`, `add_user_id`, `add_suburb_id`, `add_street`) VALUES
+(1, 1, 2, '45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_favorite_restaurants`
+--
+
+CREATE TABLE `users_favorite_restaurants` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `restaurant_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users_favorite_restaurants`
+--
+
+INSERT INTO `users_favorite_restaurants` (`id`, `user_id`, `restaurant_id`) VALUES
+(1, 1, 2),
+(2, 1, 4),
+(3, 2, 2);
 
 --
 -- Indexes for dumped tables
@@ -475,6 +559,7 @@ ALTER TABLE `restaurants`
 --
 ALTER TABLE `restaurants_cuisines`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `restaurants_id` (`restaurants_id`,`cuisines_id`),
   ADD KEY `index_restaurants_cuisines_on_restaurants_id` (`restaurants_id`),
   ADD KEY `index_restaurants_cuisines_on_cuisines_id` (`cuisines_id`);
 
@@ -487,10 +572,20 @@ ALTER TABLE `shops`
   ADD KEY `index_shops_on_restaurants_id` (`restaurants_id`);
 
 --
+-- Indexes for table `shops_serving_suburbs`
+--
+ALTER TABLE `shops_serving_suburbs`
+  ADD PRIMARY KEY (`sssb_id`),
+  ADD UNIQUE KEY `sssb_shop_id_2` (`sssb_shop_id`,`sssb_suburb_id`),
+  ADD KEY `sssb_shop_id` (`sssb_shop_id`),
+  ADD KEY `sssb_suburb_id` (`sssb_suburb_id`);
+
+--
 -- Indexes for table `suburbs`
 --
 ALTER TABLE `suburbs`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`,`cities_id`),
   ADD KEY `index_suburbs_on_cities_id` (`cities_id`);
 
 --
@@ -500,6 +595,23 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users_addresses`
+--
+ALTER TABLE `users_addresses`
+  ADD PRIMARY KEY (`add_id`),
+  ADD KEY `add_user_id` (`add_user_id`),
+  ADD KEY `add_suburg_id` (`add_suburb_id`);
+
+--
+-- Indexes for table `users_favorite_restaurants`
+--
+ALTER TABLE `users_favorite_restaurants`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id_2` (`user_id`,`restaurant_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -507,109 +619,127 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cuisines`
 --
 ALTER TABLE `cuisines`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `donations`
 --
 ALTER TABLE `donations`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `foods`
 --
 ALTER TABLE `foods`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `food_parts`
 --
 ALTER TABLE `food_parts`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `food_part_ingredients`
 --
 ALTER TABLE `food_part_ingredients`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_item_ingredients`
 --
 ALTER TABLE `order_item_ingredients`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `perfectures`
 --
 ALTER TABLE `perfectures`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `restaurants_cuisines`
 --
 ALTER TABLE `restaurants_cuisines`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `shops_serving_suburbs`
+--
+ALTER TABLE `shops_serving_suburbs`
+  MODIFY `sssb_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `suburbs`
 --
 ALTER TABLE `suburbs`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users_addresses`
+--
+ALTER TABLE `users_addresses`
+  MODIFY `add_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users_favorite_restaurants`
+--
+ALTER TABLE `users_favorite_restaurants`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -625,7 +755,7 @@ ALTER TABLE `cities`
 -- Constraints for table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  ADD CONSTRAINT `credit_cards_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `credit_cards_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `foods`
@@ -645,14 +775,14 @@ ALTER TABLE `food_parts`
 -- Constraints for table `food_part_ingredients`
 --
 ALTER TABLE `food_part_ingredients`
-  ADD CONSTRAINT `food_part_ingredients_ibfk_1` FOREIGN KEY (`food_part_id`) REFERENCES `food_parts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `food_part_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `food_part_ingredients_ibfk_1` FOREIGN KEY (`food_part_id`) REFERENCES `food_parts` (`id`),
+  ADD CONSTRAINT `food_part_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`);
 
 --
 -- Constraints for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  ADD CONSTRAINT `ingredients_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `ingredients_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`);
 
 --
 -- Constraints for table `menus`
@@ -694,10 +824,31 @@ ALTER TABLE `shops`
   ADD CONSTRAINT `fk_rails_dbd5ad31d1` FOREIGN KEY (`restaurants_id`) REFERENCES `restaurants` (`id`);
 
 --
+-- Constraints for table `shops_serving_suburbs`
+--
+ALTER TABLE `shops_serving_suburbs`
+  ADD CONSTRAINT `shops_serving_suburbs_ibfk_1` FOREIGN KEY (`sssb_shop_id`) REFERENCES `shops` (`id`),
+  ADD CONSTRAINT `shops_serving_suburbs_ibfk_2` FOREIGN KEY (`sssb_suburb_id`) REFERENCES `suburbs` (`id`);
+
+--
 -- Constraints for table `suburbs`
 --
 ALTER TABLE `suburbs`
   ADD CONSTRAINT `fk_rails_fcbc42e279` FOREIGN KEY (`cities_id`) REFERENCES `cities` (`id`);
+
+--
+-- Constraints for table `users_addresses`
+--
+ALTER TABLE `users_addresses`
+  ADD CONSTRAINT `users_addresses_ibfk_1` FOREIGN KEY (`add_suburb_id`) REFERENCES `suburbs` (`id`),
+  ADD CONSTRAINT `users_addresses_ibfk_2` FOREIGN KEY (`add_user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `users_favorite_restaurants`
+--
+ALTER TABLE `users_favorite_restaurants`
+  ADD CONSTRAINT `users_favorite_restaurants_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`),
+  ADD CONSTRAINT `users_favorite_restaurants_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
