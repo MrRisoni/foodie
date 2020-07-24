@@ -45,5 +45,46 @@ class Ingredients
      */
     private $restaurant;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurants
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurants $restaurant): self
+    {
+        $this->restaurant = $restaurant;
+
+        return $this;
+    }
+
 
 }

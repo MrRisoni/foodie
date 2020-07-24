@@ -10,13 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BrowseController  extends AbstractController
 {
-    public function getRestaurants(): void
+    public function getRestaurants(): Response
     {
 
         $repositoryCusine = $this->getDoctrine()->getRepository(\App\Entity\Cuisines::class);
         
-        var_dump($repositoryCusine->findAll());
-        echo 'heu';
-        return;
+      //  var_dump( $repositoryCusine->findAll());
+
+        return $this->render('browse/index.html.twig', [
+            'cuisines' => $repositoryCusine->findAll()]);
+
     }
 }

@@ -41,5 +41,34 @@ class UsersFavoriteRestaurants
      */
     private $user;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getRestaurant(): ?Restaurants
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurants $restaurant): self
+    {
+        $this->restaurant = $restaurant;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 
 }

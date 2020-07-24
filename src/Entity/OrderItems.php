@@ -45,5 +45,46 @@ class OrderItems
      */
     private $food;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getFood(): ?Foods
+    {
+        return $this->food;
+    }
+
+    public function setFood(?Foods $food): self
+    {
+        $this->food = $food;
+
+        return $this;
+    }
+
 
 }

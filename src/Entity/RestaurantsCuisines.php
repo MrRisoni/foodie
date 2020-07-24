@@ -48,5 +48,46 @@ class RestaurantsCuisines
      */
     private $cuisines;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getRestaurants(): ?Restaurants
+    {
+        return $this->restaurants;
+    }
+
+    public function setRestaurants(?Restaurants $restaurants): self
+    {
+        $this->restaurants = $restaurants;
+
+        return $this;
+    }
+
+    public function getCuisines(): ?Cuisines
+    {
+        return $this->cuisines;
+    }
+
+    public function setCuisines(?Cuisines $cuisines): self
+    {
+        $this->cuisines = $cuisines;
+
+        return $this;
+    }
+
 
 }

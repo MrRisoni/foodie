@@ -72,5 +72,82 @@ class Foods
      */
     private $menus;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getRestaurants(): ?Restaurants
+    {
+        return $this->restaurants;
+    }
+
+    public function setRestaurants(?Restaurants $restaurants): self
+    {
+        $this->restaurants = $restaurants;
+
+        return $this;
+    }
+
+    public function getCuisines(): ?Cuisines
+    {
+        return $this->cuisines;
+    }
+
+    public function setCuisines(?Cuisines $cuisines): self
+    {
+        $this->cuisines = $cuisines;
+
+        return $this;
+    }
+
+    public function getMenus(): ?Menus
+    {
+        return $this->menus;
+    }
+
+    public function setMenus(?Menus $menus): self
+    {
+        $this->menus = $menus;
+
+        return $this;
+    }
+
 
 }

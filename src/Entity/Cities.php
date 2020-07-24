@@ -38,5 +38,34 @@ class Cities
      */
     private $perfectures;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPerfectures(): ?Perfectures
+    {
+        return $this->perfectures;
+    }
+
+    public function setPerfectures(?Perfectures $perfectures): self
+    {
+        $this->perfectures = $perfectures;
+
+        return $this;
+    }
+
 
 }

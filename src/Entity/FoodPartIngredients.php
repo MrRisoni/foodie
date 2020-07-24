@@ -41,5 +41,34 @@ class FoodPartIngredients
      */
     private $ingredient;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getFoodPart(): ?FoodParts
+    {
+        return $this->foodPart;
+    }
+
+    public function setFoodPart(?FoodParts $foodPart): self
+    {
+        $this->foodPart = $foodPart;
+
+        return $this;
+    }
+
+    public function getIngredient(): ?Ingredients
+    {
+        return $this->ingredient;
+    }
+
+    public function setIngredient(?Ingredients $ingredient): self
+    {
+        $this->ingredient = $ingredient;
+
+        return $this;
+    }
+
 
 }

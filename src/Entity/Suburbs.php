@@ -38,5 +38,34 @@ class Suburbs
      */
     private $cities;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCities(): ?Cities
+    {
+        return $this->cities;
+    }
+
+    public function setCities(?Cities $cities): self
+    {
+        $this->cities = $cities;
+
+        return $this;
+    }
+
 
 }

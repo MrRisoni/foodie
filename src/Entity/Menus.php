@@ -38,5 +38,34 @@ class Menus
      */
     private $restaurants;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getRestaurants(): ?Restaurants
+    {
+        return $this->restaurants;
+    }
+
+    public function setRestaurants(?Restaurants $restaurants): self
+    {
+        $this->restaurants = $restaurants;
+
+        return $this;
+    }
+
 
 }

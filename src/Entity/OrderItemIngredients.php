@@ -48,5 +48,46 @@ class OrderItemIngredients
      */
     private $ingredients;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getOrderItems(): ?OrderItems
+    {
+        return $this->orderItems;
+    }
+
+    public function setOrderItems(?OrderItems $orderItems): self
+    {
+        $this->orderItems = $orderItems;
+
+        return $this;
+    }
+
+    public function getIngredients(): ?Ingredients
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(?Ingredients $ingredients): self
+    {
+        $this->ingredients = $ingredients;
+
+        return $this;
+    }
+
 
 }

@@ -59,5 +59,70 @@ class Orders
      */
     private $users;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getSuccess(): ?bool
+    {
+        return $this->success;
+    }
+
+    public function setSuccess(?bool $success): self
+    {
+        $this->success = $success;
+
+        return $this;
+    }
+
+    public function getFinal(): ?string
+    {
+        return $this->final;
+    }
+
+    public function setFinal(?string $final): self
+    {
+        $this->final = $final;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
 
 }

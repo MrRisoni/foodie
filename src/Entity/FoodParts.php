@@ -45,5 +45,46 @@ class FoodParts
      */
     private $foods;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getAllowMany(): ?bool
+    {
+        return $this->allowMany;
+    }
+
+    public function setAllowMany(?bool $allowMany): self
+    {
+        $this->allowMany = $allowMany;
+
+        return $this;
+    }
+
+    public function getFoods(): ?Foods
+    {
+        return $this->foods;
+    }
+
+    public function setFoods(?Foods $foods): self
+    {
+        $this->foods = $foods;
+
+        return $this;
+    }
+
 
 }
