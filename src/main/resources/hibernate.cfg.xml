@@ -20,6 +20,9 @@
         <mapping class="models.FoodPart"/>
         <mapping class="models.Ingredient"/>
         <mapping class="models.Menu"/>
+        <mapping class="models.Order"/>
+        <mapping class="models.OrderItem"/>
+        <mapping class="models.OrderItemIngredient"/>
 
 
     </session-factory>
