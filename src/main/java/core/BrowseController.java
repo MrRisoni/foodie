@@ -55,7 +55,7 @@ public class BrowseController {
                 " JOIN users_addresses usa ON usa.add_suburb_id =  sssb_suburb_id " +
                 " WHERE  fv.restaurant_id IS NULL " +
                 " AND usa.add_id =:addrid").setParameter("usrid",userId).setParameter("addrid",selectedAddrerss).getResultList());
-        
+
 
 
         rsp.put("favorites",favorites);

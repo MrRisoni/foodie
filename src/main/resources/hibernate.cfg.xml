@@ -16,6 +16,9 @@
         <mapping class="models.Cuisine"/>
         <mapping class="models.Restaurant"/>
         <mapping class="models.User"/>
+        <mapping class="models.Food"/>
+        <mapping class="models.FoodPart"/>
+        <mapping class="models.Ingredient"/>
 
 
     </session-factory>
