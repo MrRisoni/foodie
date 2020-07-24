@@ -1,21 +1,18 @@
 package core;
 
-import models.Cuisine;
-import models.HibernateUtil;
-import models.Restaurant;
-import models.User;
+import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import spring_repos.RestaurantRepository;
 import spring_repos.UserRepository;
 
 import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -23,6 +20,17 @@ public class BrowseController {
 
     @Autowired
     UserRepository usrRepo;
+
+    @Autowired
+    RestaurantRepository mnRepo;
+
+    @RequestMapping(value=  "/api/menu" , method = RequestMethod.GET)
+    public List<Menu> getMenu() {
+
+        Optional<Restaurant> fetchedResto = mnRepo.findById(1L);
+        Restaurant resto  = fetchedResto.orElse(null);
+        return resto.getMenu();
+    }
 
     @RequestMapping(value=  "/api/browse" , method = RequestMethod.GET)
     public HashMap<String,Object> getData()

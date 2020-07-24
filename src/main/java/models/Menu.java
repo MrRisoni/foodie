@@ -2,11 +2,10 @@ package models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @Entity
-@Table(name = "ingredients")
-public class Ingredient {
+@Table(name = "menus")
+public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -16,10 +15,7 @@ public class Ingredient {
     @Column
     private String name;
 
-    @Column
-    private BigDecimal price;
-
-    public Ingredient() {
+    public Menu() {
     }
 
     public Long getId() {
@@ -36,13 +32,5 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 }

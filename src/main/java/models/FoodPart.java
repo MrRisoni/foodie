@@ -17,14 +17,15 @@ public class FoodPart {
     @Column
     private String name;
 
+    @Column
+    private Boolean allow_many;
+
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     @JoinTable(
             name = "food_part_ingredients",
             joinColumns = @JoinColumn(name = "food_part_id"),
             inverseJoinColumns=@JoinColumn(name="ingredient_id"))
     private List<Ingredient> ingredientsList = new ArrayList<>();
-
-
 
     public FoodPart() {
     }
@@ -51,5 +52,13 @@ public class FoodPart {
 
     public void setIngredientsList(List<Ingredient> ingredientsList) {
         this.ingredientsList = ingredientsList;
+    }
+
+    public Boolean getAllow_many() {
+        return allow_many;
+    }
+
+    public void setAllow_many(Boolean allow_many) {
+        this.allow_many = allow_many;
     }
 }
