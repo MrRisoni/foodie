@@ -17,6 +17,16 @@
 				{% endfor %}
 			</div>
 
+			<div class="col-7">
+				{% for fav in favorites %}
+					<div class="row">
+						<div class="col-7">
+							<p> {{ fav.restaurant.name }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
     	</div>
 	</div>
 </section>

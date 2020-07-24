@@ -14,10 +14,14 @@ class BrowseController  extends AbstractController
     {
 
         $repositoryCusine = $this->getDoctrine()->getRepository(\App\Entity\Cuisines::class);
-        
+        $repositoryFavorites = $this->getDoctrine()->getRepository(\App\Entity\UsersFavoriteRestaurants::class);
+
+  //var_dump(  $repositoryFavorites->findAll());
+
       //  var_dump( $repositoryCusine->findAll());
 
         return $this->render('browse/index.html.twig', [
+            'favorites' => $repositoryFavorites->findAll(),
             'cuisines' => $repositoryCusine->findAll()]);
 
     }
