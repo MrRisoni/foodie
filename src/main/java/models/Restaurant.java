@@ -19,6 +19,10 @@ public class Restaurant {
     public Restaurant() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

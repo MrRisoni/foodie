@@ -2,8 +2,8 @@ package models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,7 +22,7 @@ public class User {
             name = "users_favorite_restaurants",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns=@JoinColumn(name="restaurant_id"))
-    private Set<Restaurant> restaurantSet = new HashSet<>();
+    private List<Restaurant> favoriteRestaurants = new ArrayList<>();
 
 
     public User() {
@@ -44,11 +44,11 @@ public class User {
         this.email = email;
     }
 
-    public Set<Restaurant> getRestaurantSet() {
-        return restaurantSet;
+    public List<Restaurant> getFavoriteRestaurants() {
+        return favoriteRestaurants;
     }
 
-    public void setRestaurantSet(Set<Restaurant> restaurantSet) {
-        this.restaurantSet = restaurantSet;
+    public void setFavoriteRestaurants(List<Restaurant> favoriteRestaurants) {
+        this.favoriteRestaurants = favoriteRestaurants;
     }
 }
