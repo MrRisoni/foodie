@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * RestaurantsCuisines
  *
- * @ORM\Table(name="restaurants_cuisines", indexes={@ORM\Index(name="index_restaurants_cuisines_on_cuisines_id", columns={"cuisines_id"}), @ORM\Index(name="index_restaurants_cuisines_on_restaurants_id", columns={"restaurants_id"})})
+ * @ORM\Table(name="restaurants_cuisines", uniqueConstraints={@ORM\UniqueConstraint(name="restaurants_id", columns={"restaurants_id", "cuisines_id"})}, indexes={@ORM\Index(name="index_restaurants_cuisines_on_restaurants_id", columns={"restaurants_id"}), @ORM\Index(name="index_restaurants_cuisines_on_cuisines_id", columns={"cuisines_id"})})
  * @ORM\Entity
  */
 class RestaurantsCuisines
@@ -24,9 +24,9 @@ class RestaurantsCuisines
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="active", type="boolean", nullable=true)
+     * @ORM\Column(name="active", type="boolean", nullable=true, options={"default"="1"})
      */
-    private $active;
+    private $active = true;
 
     /**
      * @var \Restaurants

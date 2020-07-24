@@ -24,16 +24,16 @@ class CreditCards
     /**
      * @var string|null
      *
-     * @ORM\Column(name="bin", type="string", length=255, nullable=true)
+     * @ORM\Column(name="bin", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $bin;
+    private $bin = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="lastfour", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lastfour", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $lastfour;
+    private $lastfour = 'NULL';
 
     /**
      * @var \DateTime

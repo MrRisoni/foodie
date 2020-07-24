@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Foods
  *
- * @ORM\Table(name="foods", indexes={@ORM\Index(name="index_foods_on_cuisines_id", columns={"cuisines_id"}), @ORM\Index(name="index_foods_on_menus_id", columns={"menus_id"}), @ORM\Index(name="index_foods_on_restaurants_id", columns={"restaurants_id"})})
+ * @ORM\Table(name="foods", indexes={@ORM\Index(name="index_foods_on_menus_id", columns={"menus_id"}), @ORM\Index(name="index_foods_on_restaurants_id", columns={"restaurants_id"}), @ORM\Index(name="index_foods_on_cuisines_id", columns={"cuisines_id"})})
  * @ORM\Entity
  */
 class Foods
@@ -24,23 +24,23 @@ class Foods
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $name;
+    private $name = 'NULL';
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="active", type="boolean", nullable=true)
+     * @ORM\Column(name="active", type="boolean", nullable=true, options={"default"="NULL"})
      */
-    private $active;
+    private $active = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $price;
+    private $price = 'NULL';
 
     /**
      * @var \Restaurants

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OrderItemIngredients
  *
- * @ORM\Table(name="order_item_ingredients", indexes={@ORM\Index(name="index_order_item_ingredients_on_ingredients_id", columns={"ingredients_id"}), @ORM\Index(name="index_order_item_ingredients_on_order_items_id", columns={"order_items_id"})})
+ * @ORM\Table(name="order_item_ingredients", indexes={@ORM\Index(name="index_order_item_ingredients_on_order_items_id", columns={"order_items_id"}), @ORM\Index(name="index_order_item_ingredients_on_ingredients_id", columns={"ingredients_id"})})
  * @ORM\Entity
  */
 class OrderItemIngredients
@@ -24,9 +24,9 @@ class OrderItemIngredients
     /**
      * @var string|null
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $price;
+    private $price = 'NULL';
 
     /**
      * @var \OrderItems

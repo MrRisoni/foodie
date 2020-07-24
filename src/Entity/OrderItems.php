@@ -24,16 +24,16 @@ class OrderItems
     /**
      * @var string|null
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $price;
+    private $price = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="comment", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="comment", type="text", length=65535, nullable=true, options={"default"="NULL"})
      */
-    private $comment;
+    private $comment = 'NULL';
 
     /**
      * @var \Foods

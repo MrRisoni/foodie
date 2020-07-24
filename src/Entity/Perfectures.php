@@ -24,9 +24,9 @@ class Perfectures
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $name;
+    private $name = 'NULL';
 
 
 }

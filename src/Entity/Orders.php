@@ -24,16 +24,16 @@ class Orders
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="success", type="boolean", nullable=true)
+     * @ORM\Column(name="success", type="boolean", nullable=true, options={"default"="NULL"})
      */
-    private $success;
+    private $success = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="final", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="final", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $final;
+    private $final = 'NULL';
 
     /**
      * @var \DateTime

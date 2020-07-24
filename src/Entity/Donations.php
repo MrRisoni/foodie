@@ -24,16 +24,16 @@ class Donations
     /**
      * @var string|null
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $title;
+    private $title = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="amount", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="amount", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $amount;
+    private $amount = 'NULL';
 
     /**
      * @var \DateTime

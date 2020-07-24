@@ -24,16 +24,16 @@ class FoodParts
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $name;
+    private $name = 'NULL';
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="allow_many", type="boolean", nullable=true)
+     * @ORM\Column(name="allow_many", type="boolean", nullable=true, options={"default"="NULL"})
      */
-    private $allowMany;
+    private $allowMany = 'NULL';
 
     /**
      * @var \Foods

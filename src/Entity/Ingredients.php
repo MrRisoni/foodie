@@ -24,16 +24,16 @@ class Ingredients
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=55, nullable=true)
+     * @ORM\Column(name="name", type="string", length=55, nullable=true, options={"default"="NULL"})
      */
-    private $name;
+    private $name = 'NULL';
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $price;
+    private $price = 'NULL';
 
     /**
      * @var \Restaurants
