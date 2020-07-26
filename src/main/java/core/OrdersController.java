@@ -26,15 +26,11 @@ public class OrdersController {
 
         try {
             Optional<Order> fetchedOrder = ordRepo.findById(1L);
-            Order ord = fetchedOrder.orElse(null);
-
-            Order returnedOrder = ord;
-            ord.setItems(ord.getItems());
-
+            Order returnedOrder = fetchedOrder.orElse(null);
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-            return mapper.writerWithView(View.JSONInvoiceWithLinesView.class).writeValueAsString(ord);
+            return mapper.writerWithView(View.IOrder.class).writeValueAsString(returnedOrder);
         }
         catch (Exception ex){
             return ex.getMessage();

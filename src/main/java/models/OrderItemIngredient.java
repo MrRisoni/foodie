@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -12,10 +14,12 @@ public class OrderItemIngredient {
     private Long id;
 
     @Column
+    @JsonView(View.IOrder.class)
     private BigDecimal price;
 
     @OneToOne
     @JoinColumn(name="ingredients_id")
+    @JsonView(View.IOrder.class)
     private Ingredient ingredientObj;
 
     public OrderItemIngredient() {

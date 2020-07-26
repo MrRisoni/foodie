@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,20 +13,25 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @JsonView(View.IOrder.class)
     private Long id;
 
     @Column
+    @JsonView(View.IOrder.class)
     private BigDecimal base_price;
 
     @Column
+    @JsonView(View.IOrder.class)
     private BigDecimal final_price;
 
     @OneToOne
     @JoinColumn(name="food_id")
+    @JsonView(View.IOrder.class)
     private Food foodObj;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="order_items_id")
+    @JsonView(View.IOrder.class)
     private List<OrderItemIngredient> ingredients = new ArrayList<>();
 
 

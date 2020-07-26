@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class Food {
 
     @NotNull
     @Column
+    @JsonView(View.IOrder.class)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)

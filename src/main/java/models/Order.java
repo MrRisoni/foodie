@@ -13,20 +13,20 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class Order {
-    @JsonView(View.JSONInvoiceWithLinesView.class)
+    @JsonView(View.IOrder.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @JsonView(View.JSONInvoiceWithLinesView.class)
+    @JsonView(View.IOrder.class)
     @Column
     private BigDecimal final_price;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @JsonView(View.JSONInvoiceWithLinesView.class)
+    @JsonView(View.IOrder.class)
     private Date created_at;
 
     @Column
@@ -36,6 +36,7 @@ public class Order {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name=" order_id")
+    @JsonView(View.IOrder.class)
     private List<OrderItem> items = new ArrayList<>();
 
 

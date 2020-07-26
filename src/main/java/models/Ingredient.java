@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -14,6 +16,7 @@ public class Ingredient {
 
     @NotNull
     @Column
+    @JsonView(View.IOrder.class)
     private String name;
 
     @Column
