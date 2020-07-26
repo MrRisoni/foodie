@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -11,10 +13,12 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @JsonView(View.IFavoriteRestau.class)
     private Long id;
 
     @NotNull
     @Column
+    @JsonView(View.IFavoriteRestau.class)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
