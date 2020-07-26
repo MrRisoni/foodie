@@ -12,6 +12,7 @@ import spring_repos.RestaurantRepository;
 import spring_repos.UserRepository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,19 @@ public class BrowseController {
 
     @Autowired
     RestaurantRepository mnRepo;
+
+    @RequestMapping(value=  "/api/filter/cuisine" , method = RequestMethod.GET)
+    public List<Object[]> filterCuisineRestau() {
+        String search = "1 2 3";
+        ArrayList<String> items = new ArrayList<>();
+        for (String cu : search.split(" ")) {
+            items.add("`" + cu + "`");
+        }
+        return HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
+                " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
+                 " WHERE  rc.cuisineσ_id IN (" + String.join(",",items) +") ").getResultList();
+
+    }
 
     @RequestMapping(value=  "/api/menu" , method = RequestMethod.GET)
     public List<Menu> getMenu() {
