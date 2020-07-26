@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,17 +13,20 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class Order {
+    @JsonView(View.JSONInvoiceWithLinesView.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @JsonView(View.JSONInvoiceWithLinesView.class)
     @Column
     private BigDecimal final_price;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
+    @JsonView(View.JSONInvoiceWithLinesView.class)
     private Date created_at;
 
     @Column
