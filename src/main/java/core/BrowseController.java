@@ -29,15 +29,25 @@ public class BrowseController {
 
     @RequestMapping(value=  "/api/filter/cuisine" , method = RequestMethod.GET)
     public List<Object[]> filterCuisineRestau() {
-        String search = "1 2 3";
-        ArrayList<String> items = new ArrayList<>();
-        for (String cu : search.split(" ")) {
-            items.add("`" + cu + "`");
-        }
-        return HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
-                " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
-                 " WHERE  rc.cuisineσ_id IN (" + String.join(",",items) +") ").getResultList();
+        try {
+            String search = "1 2 3";
+            ArrayList<String> items = new ArrayList<>();
+            for (String cu : search.split(" ")) {
+                items.add("'" + cu + "'");
+            }
+            String sql = " SELECT r.id , r.name FROM restaurants r" +
+                    " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
+                    " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ") ";
+            System.out.println(sql);
 
+            return HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
+                    " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
+                    " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ")").getResultList();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @RequestMapping(value=  "/api/menu" , method = RequestMethod.GET)
