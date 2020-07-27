@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import spring_repos.OrderRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -20,6 +21,13 @@ public class OrdersController {
 
     @Autowired
     OrderRepository ordRepo;
+
+    @RequestMapping(value=  "/api/order/add_basket" , method = RequestMethod.GET)
+    public String addToBasket(HttpSession session) {
+        session.setAttribute("foo","bar");
+        System.out.println(session.getAttribute("foo"));
+        return "ok " + session.getAttribute("totalPrice");
+    }
 
     @RequestMapping(value=  "/api/order/show" , method = RequestMethod.GET)
     public String getOrderDetails() {
