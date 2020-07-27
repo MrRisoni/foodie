@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Order;
 import models.View;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import spring_repos.OrderRepository;
 
 import javax.servlet.http.HttpSession;
@@ -22,8 +20,11 @@ public class OrdersController {
     @Autowired
     OrderRepository ordRepo;
 
-    @RequestMapping(value=  "/api/order/add_basket" , method = RequestMethod.GET)
-    public String addToBasket(HttpSession session) {
+    @PostMapping(value = "/api/order/add_basket",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public String addToBasket(@RequestBody Object postData, HttpSession session) {
         session.setAttribute("foo","bar");
         System.out.println(session.getAttribute("foo"));
         return "ok " + session.getAttribute("totalPrice");
