@@ -6,7 +6,11 @@ const data = {
     {
         foodPartId:1,
         ingredientId:1
-    }]
+    },
+    {
+            foodPartId:1,
+            ingredientId:21
+        }]
 }
 
 axios
