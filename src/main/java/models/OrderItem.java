@@ -34,6 +34,10 @@ public class OrderItem {
     @JsonView(View.IOrder.class)
     private List<OrderItemIngredient> ingredients = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name="shop_id")
+    @JsonView(View.IOrder.class)
+    private Shop shopObj;
 
     public OrderItem() {
     }
@@ -76,5 +80,13 @@ public class OrderItem {
 
     public void setIngredients(List<OrderItemIngredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Shop getShopObj() {
+        return shopObj;
+    }
+
+    public void setShopObj(Shop shopObj) {
+        this.shopObj = shopObj;
     }
 }

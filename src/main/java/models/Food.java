@@ -51,4 +51,6 @@ public class Food {
     public void setFoodparts(List<FoodPart> foodparts) {
         this.foodparts = foodparts;
     }
+
+
 }

@@ -3,9 +3,7 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-sources.jar!/" />
     </SOURCES>

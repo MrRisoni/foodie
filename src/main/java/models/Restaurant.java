@@ -13,12 +13,12 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    @JsonView(View.IFavoriteRestau.class)
+    @JsonView({View.IFavoriteRestau.class, View.IOrder.class})
     private Long id;
 
     @NotNull
     @Column
-    @JsonView(View.IFavoriteRestau.class)
+    @JsonView({View.IFavoriteRestau.class, View.IOrder.class})
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)

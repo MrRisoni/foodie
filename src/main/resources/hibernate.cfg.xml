@@ -23,6 +23,7 @@
         <mapping class="models.Order"/>
         <mapping class="models.OrderItem"/>
         <mapping class="models.OrderItemIngredient"/>
+        <mapping class="models.Shop"/>
 
 
     </session-factory>
