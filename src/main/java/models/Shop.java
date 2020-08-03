@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -9,11 +11,17 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @JsonView(View.IOrder.class)
     private Long id;
 
     @Column
+    @JsonView(View.IOrder.class)
     private String address;
 
+    @OneToOne
+    @JoinColumn(name="restaurants_id")
+    @JsonView(View.IOrder.class)
+    private Restaurant restoObj;
 
     public Shop() {
     }
@@ -32,5 +40,13 @@ public class Shop {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Restaurant getRestoObj() {
+        return restoObj;
+    }
+
+    public void setRestoObj(Restaurant restoObj) {
+        this.restoObj = restoObj;
     }
 }
