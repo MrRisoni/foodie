@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 24, 2020 at 10:24 AM
+-- Generation Time: Aug 14, 2020 at 05:35 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -49,11 +49,12 @@ INSERT INTO `cities` (`id`, `name`, `perfectures_id`) VALUES
 
 CREATE TABLE `credit_cards` (
   `id` bigint(20) NOT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `type` varchar(4) NOT NULL,
   `bin` varchar(255) DEFAULT NULL,
   `lastfour` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `user_id` bigint(20) NOT NULL
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -86,10 +87,22 @@ INSERT INTO `cuisines` (`id`, `name`) VALUES
 
 CREATE TABLE `donations` (
   `id` bigint(20) NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  `category_id` tinyint(3) UNSIGNED NOT NULL,
+  `active` tinyint(3) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `donation_categories`
+--
+
+CREATE TABLE `donation_categories` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `title` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -156,7 +169,18 @@ CREATE TABLE `food_part_ingredients` (
 INSERT INTO `food_part_ingredients` (`id`, `food_part_id`, `ingredient_id`) VALUES
 (1, 1, 4),
 (2, 1, 5),
-(3, 1, 6);
+(3, 1, 6),
+(16, 2, 1),
+(14, 2, 2),
+(13, 2, 3),
+(12, 2, 14),
+(15, 2, 15),
+(7, 3, 7),
+(5, 3, 8),
+(10, 3, 9),
+(6, 3, 10),
+(11, 3, 11),
+(4, 3, 12);
 
 -- --------------------------------------------------------
 
@@ -181,7 +205,16 @@ INSERT INTO `ingredients` (`id`, `restaurant_id`, `name`, `price`) VALUES
 (3, 1, 'Onion Rings', '1.20'),
 (4, 1, 'Πολύσπορη', '1.00'),
 (5, 1, 'Αραβική', '1.00'),
-(6, 1, 'Κανονική', '1.00');
+(6, 1, 'Κανονική', '1.00'),
+(7, 1, 'Σως', '1.00'),
+(8, 1, 'Κέτσαπ', '1.00'),
+(9, 1, 'Μουστάρδα', '1.00'),
+(10, 1, 'Τζατζίκι', '1.00'),
+(11, 1, 'Τυροκαυτερή', '1.00'),
+(12, 1, 'BBQ', '1.00'),
+(13, 1, 'Ντομάτα', '0.00'),
+(14, 1, 'Bacon', '3.00'),
+(15, 1, 'Μαϊντανός', '1.00');
 
 -- --------------------------------------------------------
 
@@ -202,7 +235,10 @@ CREATE TABLE `menus` (
 INSERT INTO `menus` (`id`, `name`, `restaurants_id`) VALUES
 (1, 'Ορεκτικά', 1),
 (2, 'Σαλάτες', 1),
-(3, 'Τυλιχτά', 1);
+(3, 'Τυλιχτά', 1),
+(4, 'Τεμάχια', 1),
+(5, 'Μερίδες', 1),
+(6, 'Αναψυκτικά', 1);
 
 -- --------------------------------------------------------
 
@@ -213,18 +249,33 @@ INSERT INTO `menus` (`id`, `name`, `restaurants_id`) VALUES
 CREATE TABLE `orders` (
   `id` bigint(20) NOT NULL,
   `success` tinyint(1) DEFAULT NULL,
-  `final` decimal(10,2) DEFAULT NULL,
+  `final_price` decimal(10,2) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `users_id` bigint(20) DEFAULT NULL
+  `users_id` bigint(20) DEFAULT NULL,
+  `address_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `pay_method_id` tinyint(3) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `success`, `final`, `created_at`, `updated_at`, `users_id`) VALUES
-(1, 1, '23.45', '2020-05-23 10:58:37', '2020-05-23 10:58:37', 1);
+INSERT INTO `orders` (`id`, `success`, `final_price`, `created_at`, `updated_at`, `users_id`, `address_id`, `pay_method_id`) VALUES
+(1, 1, '23.45', '2020-05-23 10:58:37', '2020-05-23 10:58:37', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_donations`
+--
+
+CREATE TABLE `order_donations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `category_id` tinyint(3) UNSIGNED NOT NULL,
+  `amount` decimal(10,2) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -234,10 +285,20 @@ INSERT INTO `orders` (`id`, `success`, `final`, `created_at`, `updated_at`, `use
 
 CREATE TABLE `order_items` (
   `id` bigint(20) NOT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `base_price` decimal(10,2) DEFAULT NULL,
+  `final_price` decimal(10,2) UNSIGNED NOT NULL,
   `food_id` bigint(20) DEFAULT NULL,
+  `shop_id` bigint(20) NOT NULL DEFAULT 1,
   `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `base_price`, `final_price`, `food_id`, `shop_id`, `comment`) VALUES
+(1, 1, '5.00', '7.80', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,6 +312,34 @@ CREATE TABLE `order_item_ingredients` (
   `order_items_id` bigint(20) DEFAULT NULL,
   `ingredients_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_item_ingredients`
+--
+
+INSERT INTO `order_item_ingredients` (`id`, `price`, `order_items_id`, `ingredients_id`) VALUES
+(1, '2.50', 1, 12),
+(2, '1.40', 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_methods`
+--
+
+CREATE TABLE `payment_methods` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `title` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payment_methods`
+--
+
+INSERT INTO `payment_methods` (`id`, `title`) VALUES
+(1, 'Cash on delivery'),
+(2, 'Credit Card'),
+(3, 'Paypal');
 
 -- --------------------------------------------------------
 
@@ -269,6 +358,25 @@ CREATE TABLE `perfectures` (
 
 INSERT INTO `perfectures` (`id`, `name`) VALUES
 (1, 'Αττική');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating_criteria`
+--
+
+CREATE TABLE `rating_criteria` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `crit_title` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `rating_criteria`
+--
+
+INSERT INTO `rating_criteria` (`id`, `crit_title`) VALUES
+(2, 'Ποιότητα'),
+(1, 'Ταχύτητα παράδοσης');
 
 -- --------------------------------------------------------
 
@@ -318,6 +426,48 @@ INSERT INTO `restaurants_cuisines` (`id`, `active`, `restaurants_id`, `cuisines_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `shop_id` bigint(20) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `shop_id`, `created_at`, `comment`) VALUES
+(1, 2, 1, '2020-07-24 08:36:20', 'good\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews_rating`
+--
+
+CREATE TABLE `reviews_rating` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `review_id` bigint(20) UNSIGNED NOT NULL,
+  `criteria_id` smallint(5) UNSIGNED NOT NULL,
+  `stars` decimal(2,1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reviews_rating`
+--
+
+INSERT INTO `reviews_rating` (`id`, `review_id`, `criteria_id`, `stars`) VALUES
+(1, 1, 1, '4.5'),
+(2, 1, 2, '5.0');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `shops`
 --
 
@@ -325,17 +475,18 @@ CREATE TABLE `shops` (
   `id` bigint(20) NOT NULL,
   `active` tinyint(1) DEFAULT NULL,
   `suburbs_id` bigint(20) DEFAULT NULL,
-  `restaurants_id` bigint(20) DEFAULT NULL
+  `restaurants_id` bigint(20) DEFAULT NULL,
+  `address` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shops`
 --
 
-INSERT INTO `shops` (`id`, `active`, `suburbs_id`, `restaurants_id`) VALUES
-(1, 1, 2, 1),
-(2, 1, 8, 3),
-(3, 1, 8, 4);
+INSERT INTO `shops` (`id`, `active`, `suburbs_id`, `restaurants_id`, `address`) VALUES
+(1, 1, 2, 1, 'Iakovos'),
+(2, 1, 8, 3, 'Ioakim'),
+(3, 1, 8, 4, 'Fragikos');
 
 -- --------------------------------------------------------
 
@@ -466,7 +617,7 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `credit_cards`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `cuisines`
@@ -479,7 +630,15 @@ ALTER TABLE `cuisines`
 -- Indexes for table `donations`
 --
 ALTER TABLE `donations`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `donation_categories`
+--
+ALTER TABLE `donation_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
 
 --
 -- Indexes for table `foods`
@@ -525,14 +684,26 @@ ALTER TABLE `menus`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_orders_on_users_id` (`users_id`);
+  ADD KEY `index_orders_on_users_id` (`users_id`),
+  ADD KEY `address_id` (`address_id`),
+  ADD KEY `pay_method_id` (`pay_method_id`);
+
+--
+-- Indexes for table `order_donations`
+--
+ALTER TABLE `order_donations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_order_items_on_food_id` (`food_id`);
+  ADD KEY `index_order_items_on_food_id` (`food_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `shop_id` (`shop_id`);
 
 --
 -- Indexes for table `order_item_ingredients`
@@ -543,10 +714,24 @@ ALTER TABLE `order_item_ingredients`
   ADD KEY `index_order_item_ingredients_on_ingredients_id` (`ingredients_id`);
 
 --
+-- Indexes for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
+
+--
 -- Indexes for table `perfectures`
 --
 ALTER TABLE `perfectures`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rating_criteria`
+--
+ALTER TABLE `rating_criteria`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `crit_title` (`crit_title`);
 
 --
 -- Indexes for table `restaurants`
@@ -562,6 +747,22 @@ ALTER TABLE `restaurants_cuisines`
   ADD UNIQUE KEY `restaurants_id` (`restaurants_id`,`cuisines_id`),
   ADD KEY `index_restaurants_cuisines_on_restaurants_id` (`restaurants_id`),
   ADD KEY `index_restaurants_cuisines_on_cuisines_id` (`cuisines_id`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `shop_id` (`shop_id`);
+
+--
+-- Indexes for table `reviews_rating`
+--
+ALTER TABLE `reviews_rating`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `review_id` (`review_id`),
+  ADD KEY `criteria_id` (`criteria_id`);
 
 --
 -- Indexes for table `shops`
@@ -640,6 +841,12 @@ ALTER TABLE `donations`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `donation_categories`
+--
+ALTER TABLE `donation_categories`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `foods`
 --
 ALTER TABLE `foods`
@@ -655,19 +862,19 @@ ALTER TABLE `food_parts`
 -- AUTO_INCREMENT for table `food_part_ingredients`
 --
 ALTER TABLE `food_part_ingredients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -676,22 +883,40 @@ ALTER TABLE `orders`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `order_donations`
+--
+ALTER TABLE `order_donations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_item_ingredients`
 --
 ALTER TABLE `order_item_ingredients`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `perfectures`
 --
 ALTER TABLE `perfectures`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rating_criteria`
+--
+ALTER TABLE `rating_criteria`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `restaurants`
@@ -704,6 +929,18 @@ ALTER TABLE `restaurants`
 --
 ALTER TABLE `restaurants_cuisines`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `reviews_rating`
+--
+ALTER TABLE `reviews_rating`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shops`
@@ -755,7 +992,13 @@ ALTER TABLE `cities`
 -- Constraints for table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  ADD CONSTRAINT `credit_cards_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `credit_cards_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+
+--
+-- Constraints for table `donations`
+--
+ALTER TABLE `donations`
+  ADD CONSTRAINT `donations_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `donation_categories` (`id`);
 
 --
 -- Constraints for table `foods`
@@ -794,13 +1037,24 @@ ALTER TABLE `menus`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_rails_d3f93ab604` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_rails_d3f93ab604` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `users_addresses` (`add_id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`pay_method_id`) REFERENCES `payment_methods` (`id`);
+
+--
+-- Constraints for table `order_donations`
+--
+ALTER TABLE `order_donations`
+  ADD CONSTRAINT `order_donations_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `donation_categories` (`id`),
+  ADD CONSTRAINT `order_donations_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 --
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `fk_rails_0eb6a555b3` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`);
+  ADD CONSTRAINT `fk_rails_0eb6a555b3` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`),
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`);
 
 --
 -- Constraints for table `order_item_ingredients`
@@ -815,6 +1069,20 @@ ALTER TABLE `order_item_ingredients`
 ALTER TABLE `restaurants_cuisines`
   ADD CONSTRAINT `fk_rails_8066da1e97` FOREIGN KEY (`restaurants_id`) REFERENCES `restaurants` (`id`),
   ADD CONSTRAINT `fk_rails_d4c5d78350` FOREIGN KEY (`cuisines_id`) REFERENCES `cuisines` (`id`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `reviews_rating`
+--
+ALTER TABLE `reviews_rating`
+  ADD CONSTRAINT `reviews_rating_ibfk_1` FOREIGN KEY (`criteria_id`) REFERENCES `rating_criteria` (`id`),
+  ADD CONSTRAINT `reviews_rating_ibfk_2` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`id`);
 
 --
 -- Constraints for table `shops`

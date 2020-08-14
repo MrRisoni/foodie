@@ -27,22 +27,37 @@ public class BrowseController {
     @Autowired
     RestaurantRepository mnRepo;
 
-    @RequestMapping(value=  "/api/filter/cuisine" , method = RequestMethod.GET)
-    public List<Object[]> filterCuisineRestau() {
+    @RequestMapping(value=  "/api/filter/cuisine/native" , method = RequestMethod.GET)
+    public List<Object[]> filterCuisineRestoNative() {
         try {
             String search = "1 2 3";
             ArrayList<String> items = new ArrayList<>();
             for (String cu : search.split(" ")) {
                 items.add("'" + cu + "'");
             }
-            String sql = " SELECT r.id , r.name FROM restaurants r" +
-                    " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
-                    " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ") ";
-            System.out.println(sql);
+
 
             return HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
                     " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
                     " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ")").getResultList();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @RequestMapping(value=  "/api/filter/cuisine/criteria" , method = RequestMethod.GET)
+    public List<Restaurant> filterCuisineRestoCriteria() {
+        try {
+            String search = "1 2 3";
+            ArrayList<String> items = new ArrayList<>();
+            for (String cu : search.split(" ")) {
+                items.add("'" + cu + "'");
+            }
+
+            // criteria builder
+            return null;
         }
         catch (Exception ex){
             ex.printStackTrace();
