@@ -1,7 +1,8 @@
 const axios = require('axios')
 
-const data = [
-    foods: {
+const data = {
+    donations:[],
+    foods: [{
     shopId:1,
     foodId:12,
     ingredients : [
@@ -13,7 +14,7 @@ const data = [
             foodPartId:1,
             ingredientId:21
         }]
-}]
+}]}
 
 axios
   .post("http://localhost:8080/api/order/add_basket", data)

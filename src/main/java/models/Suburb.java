@@ -13,10 +13,9 @@ public class Suburb  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Long id;
-    @Column(name = "name")
+
     private String name;
     @JoinColumn(name = "cities_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)

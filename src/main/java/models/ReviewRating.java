@@ -14,12 +14,10 @@ public class ReviewRating  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Long id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @Column(name = "stars")
+
     private BigDecimal stars;
     @JoinColumn(name = "criteria_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

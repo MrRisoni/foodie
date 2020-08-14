@@ -8,25 +8,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "perfectures")
-public class Perfectures  {
+public class Perfecture  {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Long id;
-    @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "perfecturesId", fetch = FetchType.LAZY)
-    private Set<Cities> citiesSet;
+    private Set<City> citiesSet;
 
-    public Perfectures() {
+    public Perfecture() {
     }
 
-    public Perfectures(Long id) {
-        this.id = id;
-    }
 
     public Long getId() {
         return id;
@@ -44,11 +39,11 @@ public class Perfectures  {
         this.name = name;
     }
 
-    public Set<Cities> getCitiesSet() {
+    public Set<City> getCitiesSet() {
         return citiesSet;
     }
 
-    public void setCitiesSet(Set<Cities> citiesSet) {
+    public void setCitiesSet(Set<City> citiesSet) {
         this.citiesSet = citiesSet;
     }
 

@@ -23,18 +23,16 @@ import javax.persistence.Table;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Long id;
     
-    @Column(name = "name")
     private String name;
     
     @OneToMany(mappedBy = "citiesId", fetch = FetchType.LAZY)
-    private Set<Suburbs> suburbsSet;
+    private Set<Suburb> suburbsSet;
     @JoinColumn(name = "perfectures_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Perfectures perfecturesId;
+    private Perfecture perfecturesId;
 
     public City() {
     }
@@ -56,19 +54,19 @@ public class City {
         this.name = name;
     }
 
-    public Set<Suburbs> getSuburbsSet() {
+    public Set<Suburb> getSuburbsSet() {
         return suburbsSet;
     }
 
-    public void setSuburbsSet(Set<Suburbs> suburbsSet) {
+    public void setSuburbsSet(Set<Suburb> suburbsSet) {
         this.suburbsSet = suburbsSet;
     }
 
-    public Perfectures getPerfecturesId() {
+    public Perfecture getPerfecturesId() {
         return perfecturesId;
     }
 
-    public void setPerfecturesId(Perfectures perfecturesId) {
+    public void setPerfecturesId(Perfecture perfecturesId) {
         this.perfecturesId = perfecturesId;
     }
 

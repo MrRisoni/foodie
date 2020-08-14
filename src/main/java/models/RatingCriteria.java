@@ -13,14 +13,13 @@ public class RatingCriteria  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Short id;
-    @Basic(optional = false)
+
     @Column(name = "crit_title")
     private String critTitle;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "criteriaId", fetch = FetchType.LAZY)
-    private Set<ReviewsRating> reviewsRatingSet;
+    private Set<ReviewRating> reviewsRatingSet;
 
     public RatingCriteria() {
     }
@@ -50,11 +49,11 @@ public class RatingCriteria  {
         this.critTitle = critTitle;
     }
 
-    public Set<ReviewsRating> getReviewsRatingSet() {
+    public Set<ReviewRating> getReviewsRatingSet() {
         return reviewsRatingSet;
     }
 
-    public void setReviewsRatingSet(Set<ReviewsRating> reviewsRatingSet) {
+    public void setReviewsRatingSet(Set<ReviewRating> reviewsRatingSet) {
         this.reviewsRatingSet = reviewsRatingSet;
     }
 

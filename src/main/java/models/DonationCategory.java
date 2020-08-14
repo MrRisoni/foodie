@@ -13,28 +13,19 @@ public class DonationCategory  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+
     @Column(name = "id")
     private Short id;
-    @Basic(optional = false)
+
     @Column(name = "title")
     private String title;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.LAZY)
     private Set<Donation> donationsSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.LAZY)
-    private Set<OrderDonations> orderDonationsSet;
 
-    public DonationCategories() {
+    public DonationCategory() {
     }
 
-    public DonationCategories(Short id) {
-        this.id = id;
-    }
 
-    public DonationCategories(Short id, String title) {
-        this.id = id;
-        this.title = title;
-    }
 
     public Short getId() {
         return id;
@@ -52,21 +43,15 @@ public class DonationCategory  {
         this.title = title;
     }
 
-    public Set<Donations> getDonationsSet() {
+    public Set<Donation> getDonationsSet() {
         return donationsSet;
     }
 
-    public void setDonationsSet(Set<Donations> donationsSet) {
+    public void setDonationsSet(Set<Donation> donationsSet) {
         this.donationsSet = donationsSet;
     }
 
-    public Set<OrderDonations> getOrderDonationsSet() {
-        return orderDonationsSet;
-    }
 
-    public void setOrderDonationsSet(Set<OrderDonations> orderDonationsSet) {
-        this.orderDonationsSet = orderDonationsSet;
-    }
 
     
 }

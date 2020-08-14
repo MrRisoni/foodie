@@ -1,6 +1,8 @@
 
-package entity;
+package models;
 
+
+import models.DonationCategory;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,50 +24,37 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "donations")
-public class Donations  {
+public class Donation  {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Long id;
-    
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "amount")
     private BigDecimal amount;
-    
-    @Basic(optional = false)
+
+
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    
-    @Basic(optional = false)
+
+
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-    
-    @Basic(optional = false)
-    @Column(name = "active")
+
+
     private short active;
-    
+
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private DonationCategories categoryId;
+    private DonationCategory categoryId;
 
-    public Donations() {
+    public Donation() {
     }
 
-    public Donations(Long id) {
-        this.id = id;
-    }
-
-    public Donations(Long id, Date createdAt, Date updatedAt, short active) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.active = active;
-    }
 
     public Long getId() {
         return id;
@@ -107,13 +96,13 @@ public class Donations  {
         this.active = active;
     }
 
-    public DonationCategories getCategoryId() {
+    public DonationCategory getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(DonationCategories categoryId) {
+    public void setCategoryId(DonationCategory categoryId) {
         this.categoryId = categoryId;
     }
 
-  
+
 }

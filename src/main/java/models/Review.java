@@ -15,16 +15,14 @@ public class Review {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+
     private Long id;
-    @Basic(optional = false)
+
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @Basic(optional = false)
+
     @Lob
-    @Column(name = "comment")
     private String comment;
     @JoinColumn(name = "shop_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -63,27 +61,27 @@ public class Review {
         this.comment = comment;
     }
 
-    public Shops getShopId() {
+    public Shop getShopId() {
         return shopId;
     }
 
-    public void setShopId(Shops shopId) {
+    public void setShopId(Shop shopId) {
         this.shopId = shopId;
     }
 
-    public Users getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Users userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-    public Set<ReviewsRating> getReviewsRatingSet() {
+    public Set<ReviewRating> getReviewsRatingSet() {
         return reviewsRatingSet;
     }
 
-    public void setReviewsRatingSet(Set<ReviewsRating> reviewsRatingSet) {
+    public void setReviewsRatingSet(Set<ReviewRating> reviewsRatingSet) {
         this.reviewsRatingSet = reviewsRatingSet;
     }
 
