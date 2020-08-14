@@ -2,6 +2,7 @@
 package models;
 
 
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "reviews")
 
-public class Reviews  {
+public class Review {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,14 +28,14 @@ public class Reviews  {
     private String comment;
     @JoinColumn(name = "shop_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Shops shopId;
+    private Shop shopId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users userId;
+    private User userId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reviewId", fetch = FetchType.LAZY)
-    private Set<ReviewsRating> reviewsRatingSet;
+    private Set<ReviewRating> reviewsRatingSet;
 
-    public Reviews() {
+    public Review() {
     }
 
 

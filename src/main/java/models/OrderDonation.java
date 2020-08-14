@@ -2,13 +2,14 @@
 package models;
 
 
+import java.math.BigDecimal;
 import java.util.Set;
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "order_donations")
-public class OrderDonations  {
+public class OrderDonation  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -25,19 +26,12 @@ public class OrderDonations  {
     private DonationCategories categoryId;
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Orxders orderId;
+    private Order orderId;
 
-    public OrderDonations() {
+    public OrderDonation() {
     }
 
-    public OrderDonations(Long id) {
-        this.id = id;
-    }
-
-    public OrderDonations(Long id, BigDecimal amount) {
-        this.id = id;
-        this.amount = amount;
-    }
+    
 
     public Long getId() {
         return id;
@@ -63,11 +57,11 @@ public class OrderDonations  {
         this.categoryId = categoryId;
     }
 
-    public Orxders getOrderId() {
+    public Order getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Orxders orderId) {
+    public void setOrderId(Order orderId) {
         this.orderId = orderId;
     }
 

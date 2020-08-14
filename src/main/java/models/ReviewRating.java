@@ -2,13 +2,14 @@
 package models;
 
 
+import java.math.BigDecimal;
 import java.util.Set;
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "reviews_rating")
-public class ReviewsRating  {
+public class ReviewRating  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -25,9 +26,9 @@ public class ReviewsRating  {
     private RatingCriteria criteriaId;
     @JoinColumn(name = "review_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Reviews reviewId;
+    private Review reviewId;
 
-    public ReviewsRating() {
+    public ReviewRating() {
     }
 
  
@@ -55,11 +56,11 @@ public class ReviewsRating  {
         this.criteriaId = criteriaId;
     }
 
-    public Reviews getReviewId() {
+    public Review getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(Reviews reviewId) {
+    public void setReviewId(Review reviewId) {
         this.reviewId = reviewId;
     }
 

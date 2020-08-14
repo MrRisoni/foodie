@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "suburbs")
-public class Suburbs  {
+public class Suburb  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -20,15 +20,15 @@ public class Suburbs  {
     private String name;
     @JoinColumn(name = "cities_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Cities citiesId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sssbSuburbId", fetch = FetchType.LAZY)
-    private Set<ShopsServingSuburbs> shopsServingSuburbsSet;
-    @OneToMany(mappedBy = "suburbsId", fetch = FetchType.LAZY)
-    private Set<Shops> shopsSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addSuburbId", fetch = FetchType.LAZY)
-    private Set<UsersAddresses> usersAddressesSet;
+    private City citiesId;
+    
 
-    public Suburbs() {
+    
+    @OneToMany(mappedBy = "suburbsId", fetch = FetchType.LAZY)
+    private Set<Shop> shopsSet;
+    
+
+    public Suburb() {
     }
 
       public Long getId() {
@@ -47,38 +47,23 @@ public class Suburbs  {
         this.name = name;
     }
 
-    public Cities getCitiesId() {
+    public City getCitiesId() {
         return citiesId;
     }
 
-    public void setCitiesId(Cities citiesId) {
+    public void setCitiesId(City citiesId) {
         this.citiesId = citiesId;
     }
 
-    public Set<ShopsServingSuburbs> getShopsServingSuburbsSet() {
-        return shopsServingSuburbsSet;
-    }
 
-    public void setShopsServingSuburbsSet(Set<ShopsServingSuburbs> shopsServingSuburbsSet) {
-        this.shopsServingSuburbsSet = shopsServingSuburbsSet;
-    }
-
-    public Set<Shops> getShopsSet() {
+    public Set<Shop> getShopsSet() {
         return shopsSet;
     }
 
-    public void setShopsSet(Set<Shops> shopsSet) {
+    public void setShopsSet(Set<Shop> shopsSet) {
         this.shopsSet = shopsSet;
     }
 
-    public Set<UsersAddresses> getUsersAddressesSet() {
-        return usersAddressesSet;
-    }
-
-    public void setUsersAddressesSet(Set<UsersAddresses> usersAddressesSet) {
-        this.usersAddressesSet = usersAddressesSet;
-    }
-
-  
+    
     
 }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users_addresses")
-public class UsersAddresses  {
+public class UserAddress  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -16,29 +16,26 @@ public class UsersAddresses  {
     @Basic(optional = false)
     @Column(name = "add_id")
     private Long addId;
+    
     @Basic(optional = false)
     @Column(name = "add_street")
+    
     private String addStreet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId", fetch = FetchType.LAZY)
-    private Set<Orxders> orxdersSet;
+    
+    private Set<Order> orxdersSet;
     @JoinColumn(name = "add_suburb_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Suburbs addSuburbId;
+    private Suburb addSuburbId;
+    
     @JoinColumn(name = "add_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users addUserId;
+    private User addUserId;
 
-    public UsersAddresses() {
+    public UserAddress() {
     }
 
-    public UsersAddresses(Long addId) {
-        this.addId = addId;
-    }
-
-    public UsersAddresses(Long addId, String addStreet) {
-        this.addId = addId;
-        this.addStreet = addStreet;
-    }
+ 
 
     public Long getAddId() {
         return addId;
@@ -56,27 +53,27 @@ public class UsersAddresses  {
         this.addStreet = addStreet;
     }
 
-    public Set<Orxders> getOrxdersSet() {
+    public Set<Order> getOrxdersSet() {
         return orxdersSet;
     }
 
-    public void setOrxdersSet(Set<Orxders> orxdersSet) {
+    public void setOrxdersSet(Set<Order> orxdersSet) {
         this.orxdersSet = orxdersSet;
     }
 
-    public Suburbs getAddSuburbId() {
+    public Suburb getAddSuburbId() {
         return addSuburbId;
     }
 
-    public void setAddSuburbId(Suburbs addSuburbId) {
+    public void setAddSuburbId(Suburb addSuburbId) {
         this.addSuburbId = addSuburbId;
     }
 
-    public Users getAddUserId() {
+    public User getAddUserId() {
         return addUserId;
     }
 
-    public void setAddUserId(Users addUserId) {
+    public void setAddUserId(User addUserId) {
         this.addUserId = addUserId;
     }
 

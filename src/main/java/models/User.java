@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -26,15 +27,13 @@ public class User {
 
     
     @OneToMany(mappedBy = "usersId", fetch = FetchType.LAZY)
-    private Set<Orxders> orxdersSet;
+    private Set<Order> orxdersSet;
         
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
-    private Set<Reviews> reviewsSet;
+    private Set<Review> reviewsSet;
 
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addUserId", fetch = FetchType.LAZY)
-    private Set<UsersAddresses> usersAddressesSet;
-    
+
     public User() {
     }
 

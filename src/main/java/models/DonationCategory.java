@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "donation_categories")
-public class DonationCategories  {
+public class DonationCategory  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -20,7 +20,7 @@ public class DonationCategories  {
     @Column(name = "title")
     private String title;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.LAZY)
-    private Set<Donations> donationsSet;
+    private Set<Donation> donationsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.LAZY)
     private Set<OrderDonations> orderDonationsSet;
 
