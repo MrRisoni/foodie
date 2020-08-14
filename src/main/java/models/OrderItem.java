@@ -28,7 +28,10 @@ public class OrderItem {
     @JoinColumn(name="food_id")
     @JsonView(View.IOrder.class)
     private Food foodObj;
-
+    
+    @Column 
+    private String comment;
+        
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="order_items_id")
     @JsonView(View.IOrder.class)

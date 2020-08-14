@@ -24,7 +24,17 @@ public class User {
             inverseJoinColumns=@JoinColumn(name="restaurant_id"))
     private List<Restaurant> favoriteRestaurants = new ArrayList<>();
 
+    
+    @OneToMany(mappedBy = "usersId", fetch = FetchType.LAZY)
+    private Set<Orxders> orxdersSet;
+        
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
+    private Set<Reviews> reviewsSet;
 
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addUserId", fetch = FetchType.LAZY)
+    private Set<UsersAddresses> usersAddressesSet;
+    
     public User() {
     }
 

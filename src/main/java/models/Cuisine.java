@@ -15,6 +15,11 @@ public class Cuisine {
     @NotNull
     @Column
     private String name;
+    
+     @OneToMany(mappedBy = "cuisinesId", fetch = FetchType.LAZY)
+    private Set<Foods> foodsSet;
+    @OneToMany(mappedBy = "cuisinesId", fetch = FetchType.LAZY)
+    private Set<RestaurantsCuisines> restaurantsCuisinesSet;
 
     public Cuisine() {
     }
