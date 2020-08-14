@@ -1,0 +1,18 @@
+{
+  "donations": [{ "id": 2, "amount": 4 }],
+  "fop": { "title": "COD" },
+  "orderItems": [
+    {
+      "foodObj": { "id": 4 },
+      "shopObj": { "id": 14 },
+      "quantity" : 2,
+      "comment" : "BOLIKI SAUCE"
+    },
+    {
+      "foodObj": { "id": 9 },
+      "shopObj": { "id": 28 },
+      "quantity" : 1,
+      "comment" : "BOLIKO KAYEN"
+    }
+  ]
+}

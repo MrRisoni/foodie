@@ -28,6 +28,8 @@ public class OrderItem {
     @JoinColumn(name="food_id")
     @JsonView(View.IOrder.class)
     private Food foodObj;
+
+    private int quantity;
     
     @Column 
     private String comment;
@@ -91,5 +93,21 @@ public class OrderItem {
 
     public void setShopObj(Shop shopObj) {
         this.shopObj = shopObj;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

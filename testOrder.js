@@ -1,23 +1,9 @@
 const axios = require('axios')
 
-const data = {
-    donations:[],
-    foods: [{
-    shopId:1,
-    foodId:12,
-    ingredients : [
-    {
-        foodPartId:1,
-        ingredientId:1
-    },
-    {
-            foodPartId:1,
-            ingredientId:21
-        }]
-}]}
+const reactState = require('./reactState.json');
 
 axios
-  .post("http://localhost:8080/api/order/add_basket", data)
+  .post("http://localhost:8080/api/order/update_basket", reactState)
   .then(responseObj => {
     console.log(responseObj.data);
   })
