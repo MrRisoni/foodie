@@ -21,16 +21,7 @@ public class UserAddress  {
     @Column(name = "add_street")
     
     private String addStreet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId", fetch = FetchType.LAZY)
-    
-    private Set<Order> orxdersSet;
-    @JoinColumn(name = "add_suburb_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Suburb addSuburbId;
-    
-    @JoinColumn(name = "add_user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private User addUserId;
+
 
     public UserAddress() {
     }
@@ -53,29 +44,6 @@ public class UserAddress  {
         this.addStreet = addStreet;
     }
 
-    public Set<Order> getOrxdersSet() {
-        return orxdersSet;
-    }
-
-    public void setOrxdersSet(Set<Order> orxdersSet) {
-        this.orxdersSet = orxdersSet;
-    }
-
-    public Suburb getAddSuburbId() {
-        return addSuburbId;
-    }
-
-    public void setAddSuburbId(Suburb addSuburbId) {
-        this.addSuburbId = addSuburbId;
-    }
-
-    public User getAddUserId() {
-        return addUserId;
-    }
-
-    public void setAddUserId(User addUserId) {
-        this.addUserId = addUserId;
-    }
 
 
 }

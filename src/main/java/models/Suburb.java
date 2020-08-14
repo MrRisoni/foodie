@@ -22,10 +22,6 @@ public class Suburb  {
     private City citiesId;
     
 
-    
-    @OneToMany(mappedBy = "suburbsId", fetch = FetchType.LAZY)
-    private Set<Shop> shopsSet;
-    
 
     public Suburb() {
     }
@@ -54,14 +50,6 @@ public class Suburb  {
         this.citiesId = citiesId;
     }
 
-
-    public Set<Shop> getShopsSet() {
-        return shopsSet;
-    }
-
-    public void setShopsSet(Set<Shop> shopsSet) {
-        this.shopsSet = shopsSet;
-    }
 
     
     
