@@ -1,36 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package entity;
 
-import java.io.Serializable;
+package models;
+
+
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author ekatania
- */
+
 @Entity
 @Table(name = "users_addresses")
-@NamedQueries({
-    @NamedQuery(name = "UsersAddresses.findAll", query = "SELECT u FROM UsersAddresses u")})
-public class UsersAddresses implements Serializable {
+public class UsersAddresses  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -102,29 +80,5 @@ public class UsersAddresses implements Serializable {
         this.addUserId = addUserId;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (addId != null ? addId.hashCode() : 0);
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UsersAddresses)) {
-            return false;
-        }
-        UsersAddresses other = (UsersAddresses) object;
-        if ((this.addId == null && other.addId != null) || (this.addId != null && !this.addId.equals(other.addId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.UsersAddresses[ addId=" + addId + " ]";
-    }
-    
 }

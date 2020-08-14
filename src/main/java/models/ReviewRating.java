@@ -1,34 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package entity;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+package models;
 
-/**
- *
- * @author ekatania
- */
+
+import java.util.Set;
+import javax.persistence.*;
+
+
 @Entity
 @Table(name = "reviews_rating")
-@NamedQueries({
-    @NamedQuery(name = "ReviewsRating.findAll", query = "SELECT r FROM ReviewsRating r")})
-public class ReviewsRating implements Serializable {
+public class ReviewsRating  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,15 +30,7 @@ public class ReviewsRating implements Serializable {
     public ReviewsRating() {
     }
 
-    public ReviewsRating(Long id) {
-        this.id = id;
-    }
-
-    public ReviewsRating(Long id, BigDecimal stars) {
-        this.id = id;
-        this.stars = stars;
-    }
-
+ 
     public Long getId() {
         return id;
     }
@@ -91,29 +63,6 @@ public class ReviewsRating implements Serializable {
         this.reviewId = reviewId;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReviewsRating)) {
-            return false;
-        }
-        ReviewsRating other = (ReviewsRating) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.ReviewsRating[ id=" + id + " ]";
-    }
+   
     
 }

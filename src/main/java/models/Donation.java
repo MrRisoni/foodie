@@ -1,7 +1,7 @@
 
 package entity;
 
-import java.io.Serializable;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -22,9 +22,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "donations")
-@NamedQueries({
-    @NamedQuery(name = "Donations.findAll", query = "SELECT d FROM Donations d")})
-public class Donations implements Serializable {
+public class Donations  {
 
     private static final long serialVersionUID = 1L;
     @Id

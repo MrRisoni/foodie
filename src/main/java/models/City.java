@@ -1,7 +1,7 @@
 
 package models;
 
-import java.io.Serializable;
+
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,8 +20,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cities")
-@NamedQueries({
-    @NamedQuery(name = "Cities.findAll", query = "SELECT c FROM Cities c")})
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
