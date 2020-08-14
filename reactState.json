@@ -6,7 +6,18 @@
       "foodObj": { "id": 4 },
       "shopObj": { "id": 14 },
       "quantity" : 2,
-      "comment" : "BOLIKI SAUCE"
+      "comment" : "BOLIKI SAUCE",
+      "ingredients" : [
+        {
+          "ingredientObj" : {"id" : 986}
+        },
+        {
+          "ingredientObj" : {"id" : 19}
+        },
+        {
+          "ingredientObj" : {"id" : 49}
+        }
+      ]
     },
     {
       "foodObj": { "id": 9 },

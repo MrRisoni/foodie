@@ -21,7 +21,12 @@ public class OrdersController {
     @Autowired
     OrderRepository ordRepo;
 
-    @PostMapping(value = "/api/order/update_basket",
+    @RequestMapping(value=  "/api/place_order" , method = RequestMethod.GET)
+    public String placeOrder(@RequestBody Object postData, HttpSession session) {
+        return "foo";
+    }
+
+        @PostMapping(value = "/api/order/update_basket",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
@@ -37,6 +42,9 @@ public class OrdersController {
             System.out.println("FOP " + kalathi.getFop().getTitle());
             System.out.println("foodObj ID " + kalathi.getOrderItems().get(0).getFoodObj().getId());
             System.out.println("commenx " + kalathi.getOrderItems().get(1).getComment());
+
+            System.out.println("ingred id " + kalathi.getOrderItems().get(0).getIngredients().get(0).getIngredientObj().getId());
+             session.setAttribute("foo", kalathi);
 
             //System.out.println(kalathi.getFoodId());
            // System.out.println(kalathi.getIngredients().size());
