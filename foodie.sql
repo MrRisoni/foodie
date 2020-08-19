@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 14, 2020 at 05:35 AM
+-- Generation Time: Aug 19, 2020 at 09:00 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -262,7 +262,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `success`, `final_price`, `created_at`, `updated_at`, `users_id`, `address_id`, `pay_method_id`) VALUES
-(1, 1, '23.45', '2020-05-23 10:58:37', '2020-05-23 10:58:37', 1, 1, 1);
+(1, 1, '23.45', '2020-05-23 10:58:37', '2020-05-23 10:58:37', 1, 1, 1),
+(2, NULL, NULL, '2020-08-19 07:59:17', '2020-08-19 07:59:17', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -288,6 +289,7 @@ CREATE TABLE `order_items` (
   `order_id` bigint(20) NOT NULL,
   `base_price` decimal(10,2) DEFAULT NULL,
   `final_price` decimal(10,2) UNSIGNED NOT NULL,
+  `quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
   `food_id` bigint(20) DEFAULT NULL,
   `shop_id` bigint(20) NOT NULL DEFAULT 1,
   `comment` text DEFAULT NULL
@@ -297,8 +299,8 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `base_price`, `final_price`, `food_id`, `shop_id`, `comment`) VALUES
-(1, 1, '5.00', '7.80', 1, 1, NULL);
+INSERT INTO `order_items` (`id`, `order_id`, `base_price`, `final_price`, `quantity`, `food_id`, `shop_id`, `comment`) VALUES
+(1, 1, '5.00', '7.80', 1, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -337,7 +339,7 @@ CREATE TABLE `payment_methods` (
 --
 
 INSERT INTO `payment_methods` (`id`, `title`) VALUES
-(1, 'Cash on delivery'),
+(1, 'COD'),
 (2, 'Credit Card'),
 (3, 'Paypal');
 
@@ -880,7 +882,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_donations`
