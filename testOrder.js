@@ -3,7 +3,7 @@ const axios = require('axios')
 const reactState = require('./reactState.json');
 
 axios
-  .post("http://localhost:8080/api/order/update_basket", reactState)
+  .post("http://localhost:8080/api/place_order", reactState)
   .then(responseObj => {
     console.log(responseObj.data);
   })

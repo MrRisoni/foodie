@@ -39,6 +39,9 @@ public class Order {
     @JsonView(View.IOrder.class)
     private List<OrderItem> items = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name="pay_method_id")
+    private PaymentMethod payObj;
 
     public Order() {
     }
@@ -81,5 +84,13 @@ public class Order {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public PaymentMethod getPayObj() {
+        return payObj;
+    }
+
+    public void setPayObj(PaymentMethod payObj) {
+        this.payObj = payObj;
     }
 }

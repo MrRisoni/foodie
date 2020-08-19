@@ -3,14 +3,18 @@ package core;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import models.HibernateUtil;
 import models.Order;
+import models.PaymentMethod;
 import models.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pojos.Basket;
 import spring_repos.OrderRepository;
+import spring_repos.OrderItemRepository;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -21,8 +25,29 @@ public class OrdersController {
     @Autowired
     OrderRepository ordRepo;
 
-    @RequestMapping(value=  "/api/place_order" , method = RequestMethod.GET)
-    public String placeOrder(@RequestBody Object postData, HttpSession session) {
+    @Autowired
+    OrderItemRepository ordItemRepo;
+
+    @Autowired
+    private HttpSession session;
+
+    @RequestMapping(value=  "/api/place_order" , method = RequestMethod.POST)
+    public String placeOrder( @RequestBody Object postData) {
+
+        System.out.println(postData);
+        Gson g = new Gson();
+        Basket kalathi = new Gson().fromJson(g.toJson(postData), Basket.class);
+
+        EntityManager em = HibernateUtil.getEM();
+        PaymentMethod pm = em.createQuery("FROM PaymentMethod WHERE title =:fop",PaymentMethod.class)
+        .setParameter("fop",kalathi.getFop().getTitle()).getSingleResult();
+
+
+        Order o = new Order();
+        o.setPayObj(pm);
+
+        ordRepo.save(o);
+        
         return "foo";
     }
 
@@ -30,7 +55,7 @@ public class OrdersController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String addToBasket(@RequestBody Object postData, HttpSession session) {
+    public String addToBasket(@RequestBody Object postData) {
         try {
            // session.setAttribute("foo", "bar");
             System.out.println(postData);

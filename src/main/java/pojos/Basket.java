@@ -10,9 +10,33 @@ public class Basket {
     private PaymentMethod fop;
     private CreditCard cc;
     private List<OrderItem> orderItems;
-
+    private Long userId;
+    private Long addressId;
 
     public Basket() {
+    }
+
+    public Long getUserId()
+    {
+        return this.userId;
+    }
+
+
+    public Long getAddressId()
+    {
+        return this.userId;
+    }
+
+
+    public void setUserId(Long userId)
+    {
+        this.userId  =userId;
+    }
+
+
+    public void setAddressId(Long addressId)
+    {
+        this.addressId = addressId;
     }
 
     public List<Donation> getDonations() {

@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "payment_methods")
 public class PaymentMethod  {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
