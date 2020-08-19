@@ -3,10 +3,7 @@ package core;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import models.HibernateUtil;
-import models.Order;
-import models.PaymentMethod;
-import models.View;
+import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +13,7 @@ import spring_repos.OrderItemRepository;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @CrossOrigin
@@ -42,9 +40,17 @@ public class OrdersController {
         PaymentMethod pm = em.createQuery("FROM PaymentMethod WHERE title =:fop",PaymentMethod.class)
         .setParameter("fop",kalathi.getFop().getTitle()).getSingleResult();
 
+        User usr = new User();
+        usr.setId(kalathi.getUserId());
+
+        UserAddress addr = new UserAddress();
+        addr.setAddId(kalathi.getAddressId());
 
         Order o = new Order();
         o.setPayObj(pm);
+        o.setUserObj(usr);
+        o.setAddrObj(addr);
+        o.setFinal_price(new BigDecimal(45.41));
 
         ordRepo.save(o);
         

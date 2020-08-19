@@ -43,6 +43,15 @@ public class Order {
     @JoinColumn(name="pay_method_id")
     private PaymentMethod payObj;
 
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User userObj;
+
+
+    @OneToOne
+    @JoinColumn(name="address_id")
+    private UserAddress addrObj;
+
     public Order() {
     }
 
@@ -92,5 +101,22 @@ public class Order {
 
     public void setPayObj(PaymentMethod payObj) {
         this.payObj = payObj;
+    }
+
+
+    public User getUserObj() {
+        return userObj;
+    }
+
+    public void setUserObj(User userObj) {
+        this.userObj = userObj;
+    }
+
+    public UserAddress getAddrObj() {
+        return addrObj;
+    }
+
+    public void setAddrObj(UserAddress addrObj) {
+        this.addrObj = addrObj;
     }
 }
