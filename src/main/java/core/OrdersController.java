@@ -86,7 +86,7 @@ public class OrdersController {
                 sum = sum.add(ingr.getPrice());
                 totalFoodPrice =totalFoodPrice.add(ingr.getPrice());
 
-                desiredIngredients.add(new OrderItemIngredient(ingr));
+                desiredIngredients.add(new OrderItemIngredient(ingr,ingr.getPrice()));
             }
 
 

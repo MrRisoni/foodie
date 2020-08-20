@@ -30,8 +30,9 @@ public class OrderItemIngredient {
     public OrderItemIngredient() {
     }
 
-    public OrderItemIngredient(Ingredient ingredientObj) {
+    public OrderItemIngredient(Ingredient ingredientObj,BigDecimal price) {
         this.ingredientObj = ingredientObj;
+        this.price = price;
     }
 
     public Long getId() {
