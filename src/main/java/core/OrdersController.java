@@ -56,7 +56,7 @@ public class OrdersController {
         UserAddress addr = new UserAddress();
         addr.setAddId(kalathi.getAddressId());
 
-        BigDecimal sum  = new BigDecimal(0);
+        BigDecimal sum  = new BigDecimal(3);
         BigDecimal totalFoodPrice  = new BigDecimal(0);
 
         List<OrderItem> persistOrderItems = new ArrayList<>();
@@ -70,9 +70,9 @@ public class OrdersController {
             Optional<Food> fetcableFood = fdRepo.findById(postOi.getFoodObj().getId());
             Food fai = fetcableFood.orElse(null);
             System.out.println("Food id " + postOi.getFoodObj().getId() + " price " + fai.getPrice());
-            sum.add(fai.getPrice());
+            sum = sum.add(fai.getPrice());
 
-            totalFoodPrice.add(fai.getPrice());
+            totalFoodPrice = totalFoodPrice.add(fai.getPrice());
 
 
             System.out.println("TOTAL INGREDIENTS " +  postOi.getIngredients().size());
@@ -81,8 +81,8 @@ public class OrdersController {
                 Optional<Ingredient> fetcableIngr = ingrRepo.findById(selectedIngr.getIngredientObj().getId());
                 Ingredient ingr = fetcableIngr.orElse(null);
                 System.out.println("Cost of ingredient " + ingr.getId() + " is " + ingr.getPrice() );
-                sum.add(ingr.getPrice());
-                totalFoodPrice.add(ingr.getPrice());
+              //  sum.add(ingr.getPrice());
+                totalFoodPrice =totalFoodPrice.add(ingr.getPrice());
 
                 desiredIngredients.add(new OrderItemIngredient(ingr));
             }
@@ -106,11 +106,11 @@ public class OrdersController {
         o.setAddrObj(addr);
         o.setSuccess(true);
         o.setFinal_price(sum);
-        ordRepo.save(o);
+        Order savedOrder = ordRepo.save(o);
 
-        o.setItems(persistOrderItems);
+        System.out.println("GET NEW ORDER ID " + savedOrder.getId());
          for (OrderItem pItm : persistOrderItems) {
-             pItm.setOrderObj(o);
+             pItm.setOrderObj(savedOrder);
              ordItemRepo.save(pItm);
          }
 

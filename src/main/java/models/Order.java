@@ -13,10 +13,10 @@ import java.util.List;
 @Entity
 @Table(name = "paraggelies")
 public class Order {
-    @JsonView(View.IOrder.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @JsonView(View.IOrder.class)
     private Long id;
 
     @JsonView(View.IOrder.class)
