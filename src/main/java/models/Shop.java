@@ -26,6 +26,10 @@ public class Shop {
     public Shop() {
     }
 
+    public Shop(Long pKey) {
+        this.id = pKey;
+    }
+
     public Long getId() {
         return id;
     }

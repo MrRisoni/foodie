@@ -28,9 +28,13 @@ public class Food {
     @JoinColumn(name="foods_id")
     private List<FoodPart> foodparts = new ArrayList<>();
 
-
     public Food() {
     }
+
+    public Food(Long pKey) {
+        this.id = pKey;
+    }
+
 
     public Long getId() {
         return id;

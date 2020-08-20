@@ -16,6 +16,8 @@ import spring_repos.OrderItemRepository;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -55,23 +57,48 @@ public class OrdersController {
         addr.setAddId(kalathi.getAddressId());
 
         BigDecimal sum  = new BigDecimal(0);
+        BigDecimal totalFoodPrice  = new BigDecimal(0);
+
+        List<OrderItem> persistOrderItems = new ArrayList<>();
+
         for (OrderItem postOi : kalathi.getOrderItems()){
+            totalFoodPrice  = new BigDecimal(0);
+
+            List<OrderItemIngredient> desiredIngredients = new ArrayList<>();
+
             //get the price from db
             Optional<Food> fetcableFood = fdRepo.findById(postOi.getFoodObj().getId());
             Food fai = fetcableFood.orElse(null);
             System.out.println("Food id " + postOi.getFoodObj().getId() + " price " + fai.getPrice());
             sum.add(fai.getPrice());
 
+            totalFoodPrice.add(fai.getPrice());
+
+
             System.out.println("TOTAL INGREDIENTS " +  postOi.getIngredients().size());
 
             for (OrderItemIngredient selectedIngr: postOi.getIngredients()) {
                 Optional<Ingredient> fetcableIngr = ingrRepo.findById(selectedIngr.getIngredientObj().getId());
                 Ingredient ingr = fetcableIngr.orElse(null);
-                System.out.println("COst of ingredient " + ingr.getId() + " is " + ingr.getPrice() );
+                System.out.println("Cost of ingredient " + ingr.getId() + " is " + ingr.getPrice() );
                 sum.add(ingr.getPrice());
+                totalFoodPrice.add(ingr.getPrice());
 
+                desiredIngredients.add(new OrderItemIngredient(ingr));
             }
+
+
+            OrderItem itm = new OrderItem();
+            itm.setBase_price(fai.getPrice());
+            itm.setFinal_price(totalFoodPrice);
+            itm.setFoodObj(new Food(postOi.getFoodObj().getId()));
+            itm.setShopObj(new Shop(postOi.getShopObj().getId()));
+            itm.setIngredients(desiredIngredients);
+
+            persistOrderItems.add(itm);
         }
+
+        System.out.println("TOTAL SUM IS " + sum);
 
         Order o = new Order();
         o.setPayObj(pm);
@@ -80,6 +107,14 @@ public class OrdersController {
         o.setSuccess(true);
         o.setFinal_price(sum);
         ordRepo.save(o);
+
+        o.setItems(persistOrderItems);
+         for (OrderItem pItm : persistOrderItems) {
+             pItm.setOrderObj(o);
+             ordItemRepo.save(pItm);
+         }
+
+
         
         return "foo";
     }

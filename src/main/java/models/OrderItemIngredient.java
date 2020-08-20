@@ -25,6 +25,10 @@ public class OrderItemIngredient {
     public OrderItemIngredient() {
     }
 
+    public OrderItemIngredient(Ingredient ingredientObj) {
+        this.ingredientObj = ingredientObj;
+    }
+
     public Long getId() {
         return id;
     }

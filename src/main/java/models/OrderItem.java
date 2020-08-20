@@ -44,6 +44,10 @@ public class OrderItem {
     @JsonView(View.IOrder.class)
     private Shop shopObj;
 
+    @OneToOne
+    @JoinColumn(name="order_id")
+    private Order orderObj;
+
     public OrderItem() {
     }
 
@@ -109,5 +113,13 @@ public class OrderItem {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Order getOrderObj() {
+        return orderObj;
+    }
+
+    public void setOrderObj(Order orderObj) {
+        this.orderObj = orderObj;
     }
 }

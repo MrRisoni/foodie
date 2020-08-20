@@ -37,8 +37,8 @@ public class Order {
     @UpdateTimestamp
     private Date updated_at;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name=" order_id")
+    @OneToMany(mappedBy="orderObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+  //  @JoinColumn(name=" order_id")
     @JsonView(View.IOrder.class)
     private List<OrderItem> items = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class Order {
     private PaymentMethod payObj;
 
     @OneToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="users_id")
     private User userObj;
 
 
