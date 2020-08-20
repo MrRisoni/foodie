@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pojos.Basket;
+import spring_repos.FoodRepository;
+import spring_repos.IngredientRepository;
 import spring_repos.OrderRepository;
 import spring_repos.OrderItemRepository;
 
@@ -19,6 +21,12 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 public class OrdersController {
+
+    @Autowired
+    IngredientRepository ingrRepo;
+
+    @Autowired
+    FoodRepository fdRepo;
 
     @Autowired
     OrderRepository ordRepo;
@@ -46,12 +54,31 @@ public class OrdersController {
         UserAddress addr = new UserAddress();
         addr.setAddId(kalathi.getAddressId());
 
+        BigDecimal sum  = new BigDecimal(0);
+        for (OrderItem postOi : kalathi.getOrderItems()){
+            //get the price from db
+            Optional<Food> fetcableFood = fdRepo.findById(postOi.getFoodObj().getId());
+            Food fai = fetcableFood.orElse(null);
+            System.out.println("Food id " + postOi.getFoodObj().getId() + " price " + fai.getPrice());
+            sum.add(fai.getPrice());
+
+            System.out.println("TOTAL INGREDIENTS " +  postOi.getIngredients().size());
+
+            for (OrderItemIngredient selectedIngr: postOi.getIngredients()) {
+                Optional<Ingredient> fetcableIngr = ingrRepo.findById(selectedIngr.getIngredientObj().getId());
+                Ingredient ingr = fetcableIngr.orElse(null);
+                System.out.println("COst of ingredient " + ingr.getId() + " is " + ingr.getPrice() );
+                sum.add(ingr.getPrice());
+
+            }
+        }
+
         Order o = new Order();
         o.setPayObj(pm);
         o.setUserObj(usr);
         o.setAddrObj(addr);
-        o.setFinal_price(new BigDecimal(45.41));
-
+        o.setSuccess(true);
+        o.setFinal_price(sum);
         ordRepo.save(o);
         
         return "foo";

@@ -5,27 +5,34 @@
   "addressId" : 1,
   "orderItems": [
     {
-      "foodObj": { "id": 4 },
-      "shopObj": { "id": 14 },
+      "foodObj": { "id": 1 },
+      "shopObj": { "id": 1 },
       "quantity" : 2,
       "comment" : "BOLIKI SAUCE",
       "ingredients" : [
         {
-          "ingredientObj" : {"id" : 986}
+          "ingredientObj" : {"id" : 4}
         },
         {
-          "ingredientObj" : {"id" : 19}
+          "ingredientObj" : {"id" : 3}
         },
         {
-          "ingredientObj" : {"id" : 49}
+          "ingredientObj" : {"id" : 14}
+        },
+        {
+          "ingredientObj" : {"id" : 15}
+        },
+        {
+          "ingredientObj" : {"id" : 9}
         }
       ]
     },
     {
-      "foodObj": { "id": 9 },
-      "shopObj": { "id": 28 },
+      "foodObj": { "id": 2 },
+      "shopObj": { "id": 2 },
       "quantity" : 1,
-      "comment" : "BOLIKO KAYEN"
+      "comment" : "BOLIKO KAYEN",
+      "ingredients" : []
     }
   ]
 }

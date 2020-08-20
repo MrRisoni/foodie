@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 19, 2020 at 09:00 AM
+-- Host: 127.0.0.1
+-- Generation Time: Aug 20, 2020 at 09:52 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -126,7 +125,8 @@ CREATE TABLE `foods` (
 --
 
 INSERT INTO `foods` (`id`, `name`, `active`, `restaurants_id`, `cuisines_id`, `menus_id`, `price`) VALUES
-(1, 'Λουκανικο Καρδιτσας Πιτα Γυρο', 1, 1, 1, 3, '2.80');
+(1, 'Λουκανικο Καρδιτσας Πιτα Γυρο', 1, 1, 1, 3, '2.80'),
+(2, 'Penne arabiata', 1, 3, 5, 5, '8.50');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,8 @@ CREATE TABLE `food_parts` (
 INSERT INTO `food_parts` (`id`, `name`, `foods_id`, `allow_many`) VALUES
 (1, 'Πίτα', 1, 0),
 (2, 'Συστατικά', 1, 1),
-(3, 'Αλοιφές', 1, 1);
+(3, 'Αλοιφές', 1, 1),
+(4, 'Πάστα', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -243,31 +244,6 @@ INSERT INTO `menus` (`id`, `name`, `restaurants_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `id` bigint(20) NOT NULL,
-  `success` tinyint(1) DEFAULT NULL,
-  `final_price` decimal(10,2) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `users_id` bigint(20) DEFAULT NULL,
-  `address_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
-  `pay_method_id` tinyint(3) UNSIGNED NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `success`, `final_price`, `created_at`, `updated_at`, `users_id`, `address_id`, `pay_method_id`) VALUES
-(1, 1, '23.45', '2020-05-23 10:58:37', '2020-05-23 10:58:37', 1, 1, 1),
-(2, NULL, NULL, '2020-08-19 07:59:17', '2020-08-19 07:59:17', NULL, 1, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `order_donations`
 --
 
@@ -289,7 +265,6 @@ CREATE TABLE `order_items` (
   `order_id` bigint(20) NOT NULL,
   `base_price` decimal(10,2) DEFAULT NULL,
   `final_price` decimal(10,2) UNSIGNED NOT NULL,
-  `quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
   `food_id` bigint(20) DEFAULT NULL,
   `shop_id` bigint(20) NOT NULL DEFAULT 1,
   `comment` text DEFAULT NULL
@@ -299,8 +274,8 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `base_price`, `final_price`, `quantity`, `food_id`, `shop_id`, `comment`) VALUES
-(1, 1, '5.00', '7.80', 1, 1, 1, NULL);
+INSERT INTO `order_items` (`id`, `order_id`, `base_price`, `final_price`, `food_id`, `shop_id`, `comment`) VALUES
+(1, 1, '5.00', '7.80', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -322,6 +297,30 @@ CREATE TABLE `order_item_ingredients` (
 INSERT INTO `order_item_ingredients` (`id`, `price`, `order_items_id`, `ingredients_id`) VALUES
 (1, '2.50', 1, 12),
 (2, '1.40', 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orxders`
+--
+
+CREATE TABLE `orxders` (
+  `id` bigint(20) NOT NULL,
+  `success` tinyint(1) DEFAULT NULL,
+  `final_price` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `users_id` bigint(20) DEFAULT NULL,
+  `address_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `pay_method_id` tinyint(3) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orxders`
+--
+
+INSERT INTO `orxders` (`id`, `success`, `final_price`, `created_at`, `updated_at`, `users_id`, `address_id`, `pay_method_id`) VALUES
+(1, 1, '23.45', '2020-05-23 10:58:37', '2020-05-23 10:58:37', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -682,15 +681,6 @@ ALTER TABLE `menus`
   ADD KEY `index_menus_on_restaurants_id` (`restaurants_id`);
 
 --
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `index_orders_on_users_id` (`users_id`),
-  ADD KEY `address_id` (`address_id`),
-  ADD KEY `pay_method_id` (`pay_method_id`);
-
---
 -- Indexes for table `order_donations`
 --
 ALTER TABLE `order_donations`
@@ -714,6 +704,15 @@ ALTER TABLE `order_item_ingredients`
   ADD PRIMARY KEY (`id`),
   ADD KEY `index_order_item_ingredients_on_order_items_id` (`order_items_id`),
   ADD KEY `index_order_item_ingredients_on_ingredients_id` (`ingredients_id`);
+
+--
+-- Indexes for table `orxders`
+--
+ALTER TABLE `orxders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_orders_on_users_id` (`users_id`),
+  ADD KEY `address_id` (`address_id`),
+  ADD KEY `pay_method_id` (`pay_method_id`);
 
 --
 -- Indexes for table `payment_methods`
@@ -852,13 +851,13 @@ ALTER TABLE `donation_categories`
 -- AUTO_INCREMENT for table `foods`
 --
 ALTER TABLE `foods`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `food_parts`
 --
 ALTER TABLE `food_parts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `food_part_ingredients`
@@ -879,12 +878,6 @@ ALTER TABLE `menus`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `order_donations`
 --
 ALTER TABLE `order_donations`
@@ -901,6 +894,12 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `order_item_ingredients`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `orxders`
+--
+ALTER TABLE `orxders`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -994,7 +993,7 @@ ALTER TABLE `cities`
 -- Constraints for table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  ADD CONSTRAINT `credit_cards_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+  ADD CONSTRAINT `credit_cards_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orxders` (`id`);
 
 --
 -- Constraints for table `donations`
@@ -1036,26 +1035,18 @@ ALTER TABLE `menus`
   ADD CONSTRAINT `fk_rails_151ee1f387` FOREIGN KEY (`restaurants_id`) REFERENCES `restaurants` (`id`);
 
 --
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_rails_d3f93ab604` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `users_addresses` (`add_id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`pay_method_id`) REFERENCES `payment_methods` (`id`);
-
---
 -- Constraints for table `order_donations`
 --
 ALTER TABLE `order_donations`
   ADD CONSTRAINT `order_donations_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `donation_categories` (`id`),
-  ADD CONSTRAINT `order_donations_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+  ADD CONSTRAINT `order_donations_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orxders` (`id`);
 
 --
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `fk_rails_0eb6a555b3` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`),
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orxders` (`id`),
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`);
 
 --
@@ -1064,6 +1055,14 @@ ALTER TABLE `order_items`
 ALTER TABLE `order_item_ingredients`
   ADD CONSTRAINT `fk_rails_22d8011845` FOREIGN KEY (`order_items_id`) REFERENCES `order_items` (`id`),
   ADD CONSTRAINT `fk_rails_a9318b8220` FOREIGN KEY (`ingredients_id`) REFERENCES `ingredients` (`id`);
+
+--
+-- Constraints for table `orxders`
+--
+ALTER TABLE `orxders`
+  ADD CONSTRAINT `fk_rails_d3f93ab604` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `orxders_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `users_addresses` (`add_id`),
+  ADD CONSTRAINT `orxders_ibfk_2` FOREIGN KEY (`pay_method_id`) REFERENCES `payment_methods` (`id`);
 
 --
 -- Constraints for table `restaurants_cuisines`

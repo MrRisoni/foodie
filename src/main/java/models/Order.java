@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "paraggelies")
 public class Order {
     @JsonView(View.IOrder.class)
     @Id
@@ -22,6 +22,9 @@ public class Order {
     @JsonView(View.IOrder.class)
     @Column
     private BigDecimal final_price;
+
+    @Column
+    private boolean success;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,6 +54,8 @@ public class Order {
     @OneToOne
     @JoinColumn(name="address_id")
     private UserAddress addrObj;
+
+
 
     public Order() {
     }
@@ -118,5 +123,13 @@ public class Order {
 
     public void setAddrObj(UserAddress addrObj) {
         this.addrObj = addrObj;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

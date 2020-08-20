@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class Food {
     @Column
     @JsonView(View.IOrder.class)
     private String name;
+
+    @Column
+    private BigDecimal price;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="foods_id")
@@ -52,5 +56,11 @@ public class Food {
         this.foodparts = foodparts;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

@@ -22,15 +22,15 @@ public class HibernateUtil {
         if (em == null) {
             Map<String, Object> configOverrides = new HashMap<String, Object>();
                 System.out.println("SYSTEM ENV");
-            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_PASSWD"));
-            configOverrides.put("javax.persistence.jdbc.user", System.getenv("SPRING_APP_DB_USR"));
-            if (System.getenv("SPRING_APP_DB_HOST") != null) {
-                String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_FOOD_DB_NAME") + "?serverTimezone=UTC";
+            configOverrides.put("javax.persistence.jdbc.password", "");
+            configOverrides.put("javax.persistence.jdbc.user", "root");
+
+                String dbUrl = "jdbc:mysql://localhost:3306/foodie?serverTimezone=UTC";
                 configOverrides.put("javax.persistence.jdbc.url",dbUrl);
                 System.out.println("URL CON");
                 System.out.println(dbUrl);
 
-            }
+            
 
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("fooddb",configOverrides);
             em = entityManagerFactory.createEntityManager();
@@ -42,10 +42,10 @@ public class HibernateUtil {
         // A SessionFactory is set up once for an application!
 
         Map<String,String> HerokuSettings = new HashMap<>();
-        HerokuSettings.put("hibernate.connection.password",System.getenv("SPRING_APP_DB_PASSWD"));
-        HerokuSettings.put("hibernate.connection.user",System.getenv("SPRING_APP_DB_USR"));
+        HerokuSettings.put("hibernate.connection.password","");
+        HerokuSettings.put("hibernate.connection.user","root");
         if (System.getenv("SPRING_APP_DB_HOST") != null) {
-            String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_FOOD_DB_NAME") + "?serverTimezone=UTC";
+            String dbUrl = "jdbc:mysql://localhost:3306/foodie?serverTimezone=UTC";
             HerokuSettings.put("hibernate.connection.url",dbUrl);
             System.out.println(dbUrl);
         }

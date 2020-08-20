@@ -1,10 +1,8 @@
 
 package models;
 
-
 import java.util.Set;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "payment_methods")

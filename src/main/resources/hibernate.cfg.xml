@@ -13,18 +13,29 @@
         <property name="use_sql_comments">true</property>
         <property name="connection.pool_size">100</property>
 
+        <mapping class="models.City"/>
+        <mapping class="models.CreditCard"/>
         <mapping class="models.Cuisine"/>
-        <mapping class="models.Restaurant"/>
-        <mapping class="models.User"/>
+        <mapping class="models.Donation"/>
+        <mapping class="models.DonationCategory"/>
         <mapping class="models.Food"/>
         <mapping class="models.FoodPart"/>
         <mapping class="models.Ingredient"/>
         <mapping class="models.Menu"/>
         <mapping class="models.Order"/>
+        <mapping class="models.OrderDonation"/>
         <mapping class="models.OrderItem"/>
         <mapping class="models.OrderItemIngredient"/>
-        <mapping class="models.Shop"/>
         <mapping class="models.PaymentMethod"/>
+        <mapping class="models.Perfecture"/>
+        <mapping class="models.RatingCriteria"/>
+        <mapping class="models.Restaurant"/>
+        <mapping class="models.Review"/>
+        <mapping class="models.ReviewRating"/>
+        <mapping class="models.Shop"/>
+        <mapping class="models.Suburb"/>
+        <mapping class="models.User"/>
+        <mapping class="models.UserAddress"/>
 
 
     </session-factory>
