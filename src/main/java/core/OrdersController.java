@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pojos.Basket;
-import spring_repos.FoodRepository;
-import spring_repos.IngredientRepository;
-import spring_repos.OrderRepository;
-import spring_repos.OrderItemRepository;
+import spring_repos.*;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
@@ -24,6 +21,7 @@ import java.util.Optional;
 @RestController
 public class OrdersController {
 
+
     @Autowired
     IngredientRepository ingrRepo;
 
@@ -35,6 +33,10 @@ public class OrdersController {
 
     @Autowired
     OrderItemRepository ordItemRepo;
+
+
+    @Autowired
+    OrderItemIngredientRepository orderItemIngrRepo;
 
     @Autowired
     private HttpSession session;
@@ -81,7 +83,7 @@ public class OrdersController {
                 Optional<Ingredient> fetcableIngr = ingrRepo.findById(selectedIngr.getIngredientObj().getId());
                 Ingredient ingr = fetcableIngr.orElse(null);
                 System.out.println("Cost of ingredient " + ingr.getId() + " is " + ingr.getPrice() );
-              //  sum.add(ingr.getPrice());
+                sum = sum.add(ingr.getPrice());
                 totalFoodPrice =totalFoodPrice.add(ingr.getPrice());
 
                 desiredIngredients.add(new OrderItemIngredient(ingr));
@@ -111,12 +113,13 @@ public class OrdersController {
         System.out.println("GET NEW ORDER ID " + savedOrder.getId());
          for (OrderItem pItm : persistOrderItems) {
              pItm.setOrderObj(new Order(savedOrder.getId()));
-            // ordItemRepo.save(pItm);
+            OrderItem savedItm = ordItemRepo.save(pItm);
+            for (OrderItemIngredient pItmIng : pItm.getIngredients()) {
+                pItmIng.setOrderItemObj(savedItm);
+                orderItemIngrRepo.save(pItmIng);
+            }
          }
 
-        for (OrderItem pItm : persistOrderItems) {
-             ordItemRepo.save(pItm);
-        }
 
         
         return "foo";

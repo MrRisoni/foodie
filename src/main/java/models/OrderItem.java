@@ -35,8 +35,7 @@ public class OrderItem {
     private String comment;
 
     @Transient
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="order_items_id")
+    @OneToMany(mappedBy="orderItemObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonView(View.IOrder.class)
     private List<OrderItemIngredient> ingredients = new ArrayList<>();
 

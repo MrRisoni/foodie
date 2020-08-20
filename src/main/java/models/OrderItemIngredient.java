@@ -22,6 +22,11 @@ public class OrderItemIngredient {
     @JsonView(View.IOrder.class)
     private Ingredient ingredientObj;
 
+    @OneToOne
+    @JoinColumn(name="order_items_id")
+    @JsonView(View.IOrder.class)
+    private OrderItem orderItemObj;
+
     public OrderItemIngredient() {
     }
 
@@ -51,5 +56,14 @@ public class OrderItemIngredient {
 
     public void setIngredientObj(Ingredient ingredientObj) {
         this.ingredientObj = ingredientObj;
+    }
+
+
+    public OrderItem getOrderItemObj() {
+        return orderItemObj;
+    }
+
+    public void setOrderItemObj(OrderItem orderItemObj) {
+        this.orderItemObj = orderItemObj;
     }
 }
