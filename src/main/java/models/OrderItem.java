@@ -33,7 +33,8 @@ public class OrderItem {
     
     @Column 
     private String comment;
-        
+
+    @Transient
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="order_items_id")
     @JsonView(View.IOrder.class)

@@ -110,10 +110,13 @@ public class OrdersController {
 
         System.out.println("GET NEW ORDER ID " + savedOrder.getId());
          for (OrderItem pItm : persistOrderItems) {
-             pItm.setOrderObj(savedOrder);
-             ordItemRepo.save(pItm);
+             pItm.setOrderObj(new Order(savedOrder.getId()));
+            // ordItemRepo.save(pItm);
          }
 
+        for (OrderItem pItm : persistOrderItems) {
+             ordItemRepo.save(pItm);
+        }
 
         
         return "foo";

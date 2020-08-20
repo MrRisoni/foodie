@@ -55,9 +55,11 @@ public class Order {
     @JoinColumn(name="address_id")
     private UserAddress addrObj;
 
-
-
     public Order() {
+    }
+
+    public Order(Long pKey) {
+        this.id = pKey;
     }
 
     public Long getId() {
