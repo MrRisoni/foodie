@@ -1,6 +1,8 @@
 
-package models;
+package models.users;
 
+
+import models.shop.Shop;
 
 import java.util.Date;
 import java.util.Set;

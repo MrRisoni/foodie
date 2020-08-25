@@ -1,15 +1,12 @@
 
-package models;
-
+package models.order;
 
 import java.util.Set;
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "donation_categories")
-public class DonationCategory  {
-
+@Table(name = "payment_methods")
+public class PaymentMethod  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +16,10 @@ public class DonationCategory  {
 
     @Column(name = "title")
     private String title;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId", fetch = FetchType.LAZY)
-    private Set<Donation> donationsSet;
 
-    public DonationCategory() {
+
+    public PaymentMethod() {
     }
-
 
 
     public Short getId() {
@@ -43,15 +38,6 @@ public class DonationCategory  {
         this.title = title;
     }
 
-    public Set<Donation> getDonationsSet() {
-        return donationsSet;
-    }
 
-    public void setDonationsSet(Set<Donation> donationsSet) {
-        this.donationsSet = donationsSet;
-    }
-
-
-
-    
+   
 }

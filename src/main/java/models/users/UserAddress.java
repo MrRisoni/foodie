@@ -1,5 +1,5 @@
 
-package models;
+package models.users;
 
 
 import java.util.Set;

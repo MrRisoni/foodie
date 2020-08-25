@@ -1,6 +1,8 @@
-package models;
+package models.shop;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import models.View;
+import models.shop.Menu;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

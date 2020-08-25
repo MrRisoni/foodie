@@ -1,32 +1,31 @@
 
-package models;
+package models.general;
 
+
+import models.general.City;
 
 import java.util.Set;
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "suburbs")
-public class Suburb  {
+@Table(name = "perfectures")
+public class Perfecture  {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-
     private String name;
-    @JoinColumn(name = "cities_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private City citiesId;
-    
+    @OneToMany(mappedBy = "perfecturesId", fetch = FetchType.LAZY)
+    private Set<City> citiesSet;
 
-
-    public Suburb() {
+    public Perfecture() {
     }
 
-      public Long getId() {
+
+    public Long getId() {
         return id;
     }
 
@@ -42,15 +41,14 @@ public class Suburb  {
         this.name = name;
     }
 
-    public City getCitiesId() {
-        return citiesId;
+    public Set<City> getCitiesSet() {
+        return citiesSet;
     }
 
-    public void setCitiesId(City citiesId) {
-        this.citiesId = citiesId;
+    public void setCitiesSet(Set<City> citiesSet) {
+        this.citiesSet = citiesSet;
     }
 
-
-    
+  
     
 }

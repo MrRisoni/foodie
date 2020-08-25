@@ -2,6 +2,8 @@
 package models;
 
 
+import models.users.ReviewRating;
+
 import java.util.Set;
 import javax.persistence.*;
 

@@ -1,6 +1,6 @@
 package spring_repos;
 
-import models.OrderItem;
+import models.order.OrderItem;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

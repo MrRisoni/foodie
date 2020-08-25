@@ -1,14 +1,17 @@
-package models;
+package models.shop;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import models.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "ingredients")
-public class Ingredient {
+@Table(name = "foods")
+public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -22,8 +25,17 @@ public class Ingredient {
     @Column
     private BigDecimal price;
 
-    public Ingredient() {
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="foods_id")
+    private List<FoodPart> foodparts = new ArrayList<>();
+
+    public Food() {
     }
+
+    public Food(Long pKey) {
+        this.id = pKey;
+    }
+
 
     public Long getId() {
         return id;
@@ -39,6 +51,14 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<FoodPart> getFoodparts() {
+        return foodparts;
+    }
+
+    public void setFoodparts(List<FoodPart> foodparts) {
+        this.foodparts = foodparts;
     }
 
     public BigDecimal getPrice() {

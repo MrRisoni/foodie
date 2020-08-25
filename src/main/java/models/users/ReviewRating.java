@@ -1,9 +1,10 @@
 
-package models;
+package models.users;
 
+
+import models.RatingCriteria;
 
 import java.math.BigDecimal;
-import java.util.Set;
 import javax.persistence.*;
 
 

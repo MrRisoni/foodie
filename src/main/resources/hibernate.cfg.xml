@@ -13,29 +13,29 @@
         <property name="use_sql_comments">true</property>
         <property name="connection.pool_size">100</property>
 
-        <mapping class="models.City"/>
-        <mapping class="models.CreditCard"/>
-        <mapping class="models.Cuisine"/>
-        <mapping class="models.Donation"/>
-        <mapping class="models.DonationCategory"/>
-        <mapping class="models.Food"/>
-        <mapping class="models.FoodPart"/>
-        <mapping class="models.Ingredient"/>
-        <mapping class="models.Menu"/>
-        <mapping class="models.Order"/>
-        <mapping class="models.OrderDonation"/>
-        <mapping class="models.OrderItem"/>
-        <mapping class="models.OrderItemIngredient"/>
-        <mapping class="models.PaymentMethod"/>
-        <mapping class="models.Perfecture"/>
+        <mapping class="models.general.City"/>
+        <mapping class="models.order.CreditCard"/>
+        <mapping class="models.shop.Cuisine"/>
+        <mapping class="models.order.Donation"/>
+        <mapping class="models.order.DonationCategory"/>
+        <mapping class="models.shop.Food"/>
+        <mapping class="models.shop.FoodPart"/>
+        <mapping class="models.shop.Ingredient"/>
+        <mapping class="models.shop.Menu"/>
+        <mapping class="models.order.Order"/>
+        <mapping class="models.order.OrderDonation"/>
+        <mapping class="models.order.OrderItem"/>
+        <mapping class="models.order.OrderItemIngredient"/>
+        <mapping class="models.order.PaymentMethod"/>
+        <mapping class="models.general.Perfecture"/>
         <mapping class="models.RatingCriteria"/>
-        <mapping class="models.Restaurant"/>
-        <mapping class="models.Review"/>
-        <mapping class="models.ReviewRating"/>
-        <mapping class="models.Shop"/>
-        <mapping class="models.Suburb"/>
-        <mapping class="models.User"/>
-        <mapping class="models.UserAddress"/>
+        <mapping class="models.shop.Restaurant"/>
+        <mapping class="models.users.Review"/>
+        <mapping class="models.users.ReviewRating"/>
+        <mapping class="models.shop.Shop"/>
+        <mapping class="models.general.Suburb"/>
+        <mapping class="models.users.User"/>
+        <mapping class="models.users.UserAddress"/>
 
 
     </session-factory>

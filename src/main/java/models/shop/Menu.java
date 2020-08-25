@@ -1,12 +1,11 @@
-package models;
+package models.shop;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
-@Table(name = "cuisines")
-public class Cuisine {
+@Table(name = "menus")
+public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -15,9 +14,8 @@ public class Cuisine {
     @NotNull
     @Column
     private String name;
-    
 
-    public Cuisine() {
+    public Menu() {
     }
 
     public Long getId() {

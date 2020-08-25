@@ -1,5 +1,5 @@
 
-package models;
+package models.order;
 
 
 import java.util.Date;

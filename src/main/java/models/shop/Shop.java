@@ -1,9 +1,10 @@
-package models;
+package models.shop;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import models.View;
+import models.shop.Restaurant;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "shops")

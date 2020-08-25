@@ -1,7 +1,6 @@
 package spring_repos;
 
-import models.Menu;
-import models.Restaurant;
+import models.shop.Restaurant;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

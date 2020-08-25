@@ -1,6 +1,9 @@
-package models;
+package models.order;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import models.users.User;
+import models.users.UserAddress;
+import models.View;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

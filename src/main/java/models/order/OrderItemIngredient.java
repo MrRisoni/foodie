@@ -1,6 +1,9 @@
-package models;
+package models.order;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import models.View;
+import models.order.OrderItem;
+import models.shop.Ingredient;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
