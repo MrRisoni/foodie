@@ -27,9 +27,6 @@ public class User {
     private List<Restaurant> favoriteRestaurants = new ArrayList<>();
 
 
-
-    
-
     public User() {
     }
 

@@ -32,6 +32,11 @@ public class Restaurant {
     public Restaurant() {
     }
 
+    public Restaurant(Long id, @NotNull String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

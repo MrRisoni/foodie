@@ -7,6 +7,8 @@ import models.shop.Cuisine;
 import models.shop.Menu;
 import models.shop.Restaurant;
 import models.users.User;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,21 +89,19 @@ public class BrowseController {
             Long selectedAddrerss = 1L;
             rsp.put("cusines", em.createQuery("FROM Cuisine ORDER BY name ASC", Cuisine.class).getResultList());
 
-            Optional<User> fetchedUser = usrRepo.findById(userId);
-            User foundUsr = fetchedUser.orElse(null);
+            List<Restaurant> favs = em.createNativeQuery("SELECT fv.restaurant_id AS id " +
+                    " ,r.name " +
+                    "FROM  users_favorite_restaurants fv" +
+                    " JOIN restaurants r ON r.id = fv.restaurant_id" +
+                    " WHERE fv.user_id = :usrId ").setParameter("usrId",userId)
+                    .unwrap(org.hibernate.query.NativeQuery.class)
+                    .addScalar("id", StandardBasicTypes.LONG)
+                    .addScalar("name",StandardBasicTypes.STRING)
+                    .setResultTransformer(Transformers.aliasToBean(Restaurant.class))
+                    .getResultList();
 
-            HashMap<Long, String> favorites = new HashMap<>();
-            List<Restaurant> favs = foundUsr.getFavoriteRestaurants();
+            rsp.put("favorites", favs);
 
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-
-            rsp.put("favorites", mapper.writerWithView(View.IFavoriteRestau.class).writeValueAsString(favs));
-
-
-            for (Restaurant fv : favs) {
-                favorites.put(fv.getId(), fv.getName());
-            }
             // get all other restaurants that serve the users suburb address
             // and that are not in his favorites
 
