@@ -121,6 +121,7 @@ public class BrowseController {
         }
         catch (Exception ex)
         {
+            ex.printStackTrace();
             return null;
         }
 
