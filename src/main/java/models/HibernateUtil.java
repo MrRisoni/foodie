@@ -36,6 +36,7 @@ public class HibernateUtil {
         return em;
     }
 
+    /*
     public static SessionFactory buildSessionFactory() {
         // A SessionFactory is set up once for an application!
 
@@ -65,13 +66,14 @@ public class HibernateUtil {
             return null;
         }
     }
-
+*/
+    /*
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
     public static void shutdown() {
         sessionFactory.close();
-    }
+    }*/
 
 }
