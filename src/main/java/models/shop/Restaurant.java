@@ -27,6 +27,9 @@ public class Restaurant {
     @JoinColumn(name="restaurants_id")
     private List<Menu> menu = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="restaurants_id")
+    private List<RestaurantCuisine> cuisines = new ArrayList<>();
 
 
     public Restaurant() {
@@ -59,5 +62,13 @@ public class Restaurant {
 
     public void setMenu(List<Menu> menu) {
         this.menu = menu;
+    }
+
+    public List<RestaurantCuisine> getCusines() {
+        return cuisines;
+    }
+
+    public void setCusines(List<RestaurantCuisine> cusines) {
+        this.cuisines = cusines;
     }
 }

@@ -6,6 +6,7 @@ import models.*;
 import models.shop.Cuisine;
 import models.shop.Menu;
 import models.shop.Restaurant;
+import models.shop.RestaurantCuisine;
 import models.users.User;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
@@ -18,6 +19,7 @@ import spring_repos.RestaurantRepository;
 import spring_repos.UserRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +35,8 @@ public class BrowseController {
     @Autowired
     RestaurantRepository mnRepo;
 
-    @RequestMapping(value=  "/api/filter/cuisine/native" , method = RequestMethod.GET)
-    public List<Object[]> filterCuisineRestoNative() {
+    @RequestMapping(value = "/api/filter/cuisine", method = RequestMethod.GET)
+    public List<Restaurant> filterCuisines() {
         try {
             String search = "1 2 3";
             ArrayList<String> items = new ArrayList<>();
@@ -45,58 +47,45 @@ public class BrowseController {
 
             return HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
                     " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
-                    " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ")").getResultList();
-        }
-        catch (Exception ex){
+                    " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ")")
+                    .unwrap(org.hibernate.query.NativeQuery.class)
+                    .addScalar("id", StandardBasicTypes.LONG)
+                    .addScalar("name", StandardBasicTypes.STRING)
+                    .setResultTransformer(Transformers.aliasToBean(Restaurant.class))
+                    .getResultList();
+
+
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    @RequestMapping(value=  "/api/filter/cuisine/criteria" , method = RequestMethod.GET)
-    public List<Restaurant> filterCuisineRestoCriteria() {
-        try {
-            String search = "1 2 3";
-            ArrayList<String> items = new ArrayList<>();
-            for (String cu : search.split(" ")) {
-                items.add("'" + cu + "'");
-            }
-
-            // criteria builder
-            return null;
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
-    @RequestMapping(value=  "/api/menu" , method = RequestMethod.GET)
+    @RequestMapping(value = "/api/menu", method = RequestMethod.GET)
     public List<Menu> getMenu() {
 
         Optional<Restaurant> fetchedResto = mnRepo.findById(1L);
-        Restaurant resto  = fetchedResto.orElse(null);
+        Restaurant resto = fetchedResto.orElse(null);
         return resto.getMenu();
     }
 
-    @RequestMapping(value=  "/api/browse" , method = RequestMethod.GET)
-    public HashMap<String,Object> getData()
-    {
+    @RequestMapping(value = "/api/home", method = RequestMethod.GET)
+    public HashMap<String, Object> getData() {
         try {
             EntityManager em = HibernateUtil.getEM();
             HashMap<String, Object> rsp = new HashMap<>();
             Long userId = 1L;
             Long selectedAddrerss = 1L;
-            rsp.put("cusines", em.createQuery("FROM Cuisine ORDER BY name ASC", Cuisine.class).getResultList());
+            rsp.put("cuisines", em.createQuery("FROM Cuisine ORDER BY name ASC", Cuisine.class).getResultList());
 
             List<Restaurant> favs = em.createNativeQuery("SELECT fv.restaurant_id AS id " +
                     " ,r.name " +
                     "FROM  users_favorite_restaurants fv" +
                     " JOIN restaurants r ON r.id = fv.restaurant_id" +
-                    " WHERE fv.user_id = :usrId ").setParameter("usrId",userId)
+                    " WHERE fv.user_id = :usrId ").setParameter("usrId", userId)
                     .unwrap(org.hibernate.query.NativeQuery.class)
                     .addScalar("id", StandardBasicTypes.LONG)
-                    .addScalar("name",StandardBasicTypes.STRING)
+                    .addScalar("name", StandardBasicTypes.STRING)
                     .setResultTransformer(Transformers.aliasToBean(Restaurant.class))
                     .getResultList();
 
@@ -114,16 +103,20 @@ public class BrowseController {
                             " JOIN  shops_serving_suburbs ssbs ON ssbs.sssb_shop_id = s.id " +
                             " JOIN users_addresses usa ON usa.add_suburb_id =  sssb_suburb_id " +
                             " WHERE  fv.restaurant_id IS NULL " +
-                            " AND usa.add_id =:addrid").setParameter("usrid", userId).setParameter("addrid", selectedAddrerss).getResultList());
-
+                            " AND usa.add_id =:addrid")
+                    .setParameter("usrid", userId)
+                    .setParameter("addrid", selectedAddrerss)
+                    .unwrap(org.hibernate.query.NativeQuery.class)
+                    .addScalar("id", StandardBasicTypes.LONG)
+                    .addScalar("name", StandardBasicTypes.STRING)
+                    .setResultTransformer(Transformers.aliasToBean(Restaurant.class))
+                    .getResultList());
 
             return rsp;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
 
-     }
+    }
 }
