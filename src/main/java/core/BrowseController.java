@@ -11,6 +11,8 @@ import models.users.User;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +38,7 @@ public class BrowseController {
     RestaurantRepository mnRepo;
 
     @RequestMapping(value = "/api/filter/cuisine", method = RequestMethod.GET)
-    public List<Restaurant> filterCuisines() {
+    public ResponseEntity<Object> filterCuisines() {
         try {
             String search = "1 2 3";
             ArrayList<String> items = new ArrayList<>();
@@ -45,19 +47,19 @@ public class BrowseController {
             }
 
 
-            return HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
+            return new ResponseEntity<>(HibernateUtil.getEM().createNativeQuery("SELECT r.id , r.name FROM restaurants r" +
                     " JOIN restaurants_cuisines rc ON rc.restaurants_id =  r.id " +
                     " WHERE  rc.cuisines_id IN (" + String.join(",", items) + ")")
                     .unwrap(org.hibernate.query.NativeQuery.class)
                     .addScalar("id", StandardBasicTypes.LONG)
                     .addScalar("name", StandardBasicTypes.STRING)
                     .setResultTransformer(Transformers.aliasToBean(Restaurant.class))
-                    .getResultList();
+                    .getResultList(),HttpStatus.OK);
 
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_GATEWAY);
         }
     }
 
@@ -70,7 +72,7 @@ public class BrowseController {
     }
 
     @RequestMapping(value = "/api/home", method = RequestMethod.GET)
-    public HashMap<String, Object> getData() {
+    public ResponseEntity<Object> getData() {
         try {
             EntityManager em = HibernateUtil.getEM();
             HashMap<String, Object> rsp = new HashMap<>();
@@ -112,10 +114,10 @@ public class BrowseController {
                     .setResultTransformer(Transformers.aliasToBean(Restaurant.class))
                     .getResultList());
 
-            return rsp;
+            return new ResponseEntity<>(rsp,HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_GATEWAY);
         }
 
     }
