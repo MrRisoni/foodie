@@ -1,52 +1,33 @@
 package models.shop;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import models.View;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @NotNull
+    @Getter
+    @Setter
     @Column
-    @JsonView(View.IOrder.class)
     private String name;
 
+    @Getter
+    @Setter
     @Column
     private BigDecimal price;
 
     public Ingredient() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 }

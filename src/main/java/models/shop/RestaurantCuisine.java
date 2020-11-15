@@ -1,8 +1,7 @@
 package models.shop;
 
-
-import com.fasterxml.jackson.annotation.JsonView;
-import models.View;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +10,8 @@ import java.util.List;
 @Entity
 @Table(name = "restaurants_cuisines")
 public class RestaurantCuisine {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -20,6 +21,8 @@ public class RestaurantCuisine {
     @JoinColumn(name="cuisines_id", insertable = false,updatable = false)
     private Cuisine cuisineObj;
 
+    @Getter
+    @Setter
     @Column(name="cuisines_id")
     private Long cuisineFKey;
 
@@ -30,28 +33,11 @@ public class RestaurantCuisine {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Cuisine getCuisineObj() {
         return cuisineObj;
     }
 
     public void setCuisineObj(Cuisine cuisineObj) {
         this.cuisineObj = cuisineObj;
-    }
-
-
-    public Long getCuisineFKey() {
-        return cuisineFKey;
-    }
-
-    public void setCuisineFKey(Long cuisineFKey) {
-        this.cuisineFKey = cuisineFKey;
     }
 }

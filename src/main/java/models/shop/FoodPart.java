@@ -1,49 +1,40 @@
 package models.shop;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "food_parts")
 public class FoodPart {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @NotNull
+    @Getter
+    @Setter
     @Column
     private String name;
 
+    @Getter
+    @Setter
     @Column
     private Boolean allow_many;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinTable(
             name = "food_part_ingredients",
             joinColumns = @JoinColumn(name = "food_part_id"),
-            inverseJoinColumns=@JoinColumn(name="ingredient_id"))
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredientsList = new ArrayList<>();
 
     public FoodPart() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<Ingredient> getIngredientsList() {
@@ -52,13 +43,5 @@ public class FoodPart {
 
     public void setIngredientsList(List<Ingredient> ingredientsList) {
         this.ingredientsList = ingredientsList;
-    }
-
-    public Boolean getAllow_many() {
-        return allow_many;
-    }
-
-    public void setAllow_many(Boolean allow_many) {
-        this.allow_many = allow_many;
     }
 }

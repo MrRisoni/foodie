@@ -1,9 +1,10 @@
 package models.order;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.users.User;
 import models.users.UserAddress;
-import models.View;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,33 +17,38 @@ import java.util.List;
 @Entity
 @Table(name = "paraggelies")
 public class Order {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    @JsonView(View.IOrder.class)
     private Long id;
 
-    @JsonView(View.IOrder.class)
+    @Getter
+    @Setter
     @Column
     private BigDecimal final_price;
 
+    @Getter
+    @Setter
     @Column
     private boolean success;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @JsonView(View.IOrder.class)
     private Date created_at;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date updated_at;
 
     @OneToMany(mappedBy="orderObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-  //  @JoinColumn(name=" order_id")
-    @JsonView(View.IOrder.class)
     private List<OrderItem> items = new ArrayList<>();
 
     @OneToOne
@@ -53,48 +59,11 @@ public class Order {
     @JoinColumn(name="users_id")
     private User userObj;
 
-
     @OneToOne
     @JoinColumn(name="address_id")
     private UserAddress addrObj;
 
     public Order() {
-    }
-
-    public Order(Long pKey) {
-        this.id = pKey;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getFinal_price() {
-        return final_price;
-    }
-
-    public void setFinal_price(BigDecimal final_price) {
-        this.final_price = final_price;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
     }
 
     public List<OrderItem> getItems() {
@@ -112,7 +81,6 @@ public class Order {
     public void setPayObj(PaymentMethod payObj) {
         this.payObj = payObj;
     }
-
 
     public User getUserObj() {
         return userObj;

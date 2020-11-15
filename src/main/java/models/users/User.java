@@ -1,21 +1,24 @@
 package models.users;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.shop.Restaurant;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @NotNull
+    @Getter
+    @Setter
     @Column
     private String email;
 
@@ -26,24 +29,7 @@ public class User {
             inverseJoinColumns=@JoinColumn(name="restaurant_id"))
     private List<Restaurant> favoriteRestaurants = new ArrayList<>();
 
-
     public User() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public List<Restaurant> getFavoriteRestaurants() {

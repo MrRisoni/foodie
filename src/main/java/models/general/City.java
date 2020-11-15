@@ -1,27 +1,24 @@
 
 package models.general;
-
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
 @Table(name = "cities")
 public class City {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
-    
+
+    @Getter
+    @Setter
+    @Column
     private String name;
     
     @OneToMany(mappedBy = "citiesId", fetch = FetchType.LAZY)
@@ -33,24 +30,7 @@ public class City {
     public City() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Suburb> getSuburbsSet() {
+   public Set<Suburb> getSuburbsSet() {
         return suburbsSet;
     }
 
@@ -65,7 +45,4 @@ public class City {
     public void setPerfecturesId(Perfecture perfecturesId) {
         this.perfecturesId = perfecturesId;
     }
-
-   
-    
 }

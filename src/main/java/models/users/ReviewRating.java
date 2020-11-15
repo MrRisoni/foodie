@@ -1,50 +1,38 @@
-
 package models.users;
 
-
-import models.RatingCriteria;
+import lombok.Getter;
+import lombok.Setter;
+import models.shop.RatingCriteria;
 
 import java.math.BigDecimal;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "reviews_rating")
 public class ReviewRating  {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
 
+    @Getter
+    @Setter
+    @Column
     private BigDecimal stars;
+
     @JoinColumn(name = "criteria_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private RatingCriteria criteriaId;
+
     @JoinColumn(name = "review_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Review reviewId;
 
     public ReviewRating() {
-    }
-
- 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getStars() {
-        return stars;
-    }
-
-    public void setStars(BigDecimal stars) {
-        this.stars = stars;
     }
 
     public RatingCriteria getCriteriaId() {
@@ -62,7 +50,4 @@ public class ReviewRating  {
     public void setReviewId(Review reviewId) {
         this.reviewId = reviewId;
     }
-
-   
-    
 }

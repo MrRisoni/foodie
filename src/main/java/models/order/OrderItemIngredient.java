@@ -1,7 +1,7 @@
 package models.order;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import models.View;
+import lombok.Getter;
+import lombok.Setter;
 import models.order.OrderItem;
 import models.shop.Ingredient;
 
@@ -11,23 +11,24 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "order_item_ingredients")
 public class OrderItemIngredient {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @Getter
+    @Setter
     @Column
-    @JsonView(View.IOrder.class)
     private BigDecimal price;
 
     @OneToOne
     @JoinColumn(name="ingredients_id")
-    @JsonView(View.IOrder.class)
     private Ingredient ingredientObj;
 
     @OneToOne
     @JoinColumn(name="order_items_id")
-    @JsonView(View.IOrder.class)
     private OrderItem orderItemObj;
 
     public OrderItemIngredient() {
@@ -38,22 +39,6 @@ public class OrderItemIngredient {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public Ingredient getIngredientObj() {
         return ingredientObj;
     }
@@ -61,7 +46,6 @@ public class OrderItemIngredient {
     public void setIngredientObj(Ingredient ingredientObj) {
         this.ingredientObj = ingredientObj;
     }
-
 
     public OrderItem getOrderItemObj() {
         return orderItemObj;

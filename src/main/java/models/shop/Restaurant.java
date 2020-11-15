@@ -1,26 +1,28 @@
 package models.shop;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import models.View;
+import lombok.Getter;
+import lombok.Setter;
 import models.shop.Menu;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
 public class Restaurant {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    @JsonView({View.IFavoriteRestau.class, View.IOrder.class})
     private Long id;
 
-    @NotNull
+    @Getter
+    @Setter
     @Column
-    @JsonView({View.IFavoriteRestau.class, View.IOrder.class})
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -35,25 +37,9 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(Long id, @NotNull String name) {
+    public Restaurant(Long id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public List<Menu> getMenu() {

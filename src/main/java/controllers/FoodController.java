@@ -1,4 +1,4 @@
-package core;
+package controllers;
 
 import models.shop.Food;
 import org.springframework.beans.factory.annotation.Autowired;

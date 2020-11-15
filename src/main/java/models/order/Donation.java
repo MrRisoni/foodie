@@ -1,6 +1,7 @@
-
 package models.order;
 
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,31 +17,38 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 @Table(name = "donations")
 public class Donation  {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Getter
+    @Setter
+    @Column
     private BigDecimal amount;
 
-
+    @Getter
+    @Setter
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-
+    @Getter
+    @Setter
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-
+    @Getter
+    @Setter
+    @Column
     private short active;
 
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -50,47 +58,6 @@ public class Donation  {
     public Donation() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public short getActive() {
-        return active;
-    }
-
-    public void setActive(short active) {
-        this.active = active;
-    }
-
     public DonationCategory getCategoryId() {
         return categoryId;
     }
@@ -98,6 +65,4 @@ public class Donation  {
     public void setCategoryId(DonationCategory categoryId) {
         this.categoryId = categoryId;
     }
-
-
 }
