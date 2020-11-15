@@ -1,0 +1,30 @@
+{
+  "id": 1,
+  "final_price": 23.45,
+  "created_at": "2020-05-23T10:58:37.000+00:00",
+  "items": [
+    {
+      "id": 1,
+      "base_price": 5.00,
+      "final_price": 7.80,
+      "foodObj": {
+        "id": 1,
+        "name": "Λουκανικο Καρδιτσας Πιτα Γυρο"
+      },
+      "ingredients": [],
+      "shopObj": {
+        "address": "Iakovos",
+        "restoObj": {
+          "id": 1,
+          "name": "stage grill"
+        }
+      }
+    }
+  ],
+  "payObj": {
+    "title": "COD"
+  },
+  "addrObj": {
+    "addStreet": "45"
+  }
+}

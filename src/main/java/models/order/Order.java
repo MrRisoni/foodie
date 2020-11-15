@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "paraggelies")
+@Table(name = " orxders")
 public class Order {
     @Getter
     @Setter
@@ -66,6 +66,10 @@ public class Order {
     public Order() {
     }
 
+    public Order(Long id) {
+        this.id = id;
+    }
+
     public List<OrderItem> getItems() {
         return items;
     }
@@ -96,13 +100,5 @@ public class Order {
 
     public void setAddrObj(UserAddress addrObj) {
         this.addrObj = addrObj;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 }

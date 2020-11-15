@@ -23,5 +23,4 @@ public class PaymentMethod  {
 
     public PaymentMethod() {
     }
-
 }

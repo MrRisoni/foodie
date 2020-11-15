@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import dtos.OrderDto;
 import models.*;
 import models.order.Order;
 import models.order.OrderItem;
@@ -13,6 +14,7 @@ import models.shop.Ingredient;
 import models.shop.Shop;
 import models.users.User;
 import models.users.UserAddress;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -50,6 +52,9 @@ public class OrdersController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @RequestMapping(value = "/api/place_order", method = RequestMethod.POST)
     public ResponseEntity<String> placeOrder(@RequestBody Object postData) {
@@ -166,18 +171,17 @@ public class OrdersController {
 
 
     @RequestMapping(value = "/api/order/show", method = RequestMethod.GET)
-    public ResponseEntity<String> getOrderDetails() {
+    public ResponseEntity<OrderDto> getOrderDetails() {
 
         try {
             Optional<Order> fetchedOrder = ordRepo.findById(1L);
             Order returnedOrder = fetchedOrder.orElse(null);
 
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-            String json=  mapper.writerWithView(View.IOrder.class).writeValueAsString(returnedOrder);
-            return new ResponseEntity<>(json,HttpStatus.OK);
+            OrderDto rspDtp = modelMapper.map(returnedOrder, OrderDto.class);
+
+            return new ResponseEntity<>(rspDtp,HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);
         }
     }
 
