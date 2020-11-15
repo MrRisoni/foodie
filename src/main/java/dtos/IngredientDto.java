@@ -8,5 +8,4 @@ import java.math.BigDecimal;
 public class IngredientDto {
     private String name;
     private BigDecimal price;
-
 }

@@ -177,10 +177,10 @@ public class OrdersController {
             Optional<Order> fetchedOrder = ordRepo.findById(1L);
             Order returnedOrder = fetchedOrder.orElse(null);
 
-            OrderDto rspDtp = modelMapper.map(returnedOrder, OrderDto.class);
-
-            return new ResponseEntity<>(rspDtp,HttpStatus.OK);
+            OrderDto rspDto = modelMapper.map(returnedOrder, OrderDto.class);
+            return new ResponseEntity<>(rspDto,HttpStatus.OK);
         } catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);
         }
     }

@@ -44,7 +44,6 @@ public class OrderItem {
     @Column 
     private String comment;
 
-    @Transient
     @OneToMany(mappedBy="orderItemObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<OrderItemIngredient> ingredients = new ArrayList<>();
 

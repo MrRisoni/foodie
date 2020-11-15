@@ -11,7 +11,22 @@
         "id": 1,
         "name": "Λουκανικο Καρδιτσας Πιτα Γυρο"
       },
-      "ingredients": [],
+      "ingredients": [
+        {
+          "price": 2.50,
+          "ingredientObj": {
+            "name": "BBQ",
+            "price": 1.00
+          }
+        },
+        {
+          "price": 1.40,
+          "ingredientObj": {
+            "name": "Onion Rings",
+            "price": 1.20
+          }
+        }
+      ],
       "shopObj": {
         "address": "Iakovos",
         "restoObj": {
